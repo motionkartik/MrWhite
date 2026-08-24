@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>Mr White</title>
+<style>
+  :root{
+    --bg:#fff;
+    --text:#161616;
+    --muted:#666;
+    --subtle:#888;
+    --line:#e7e7e7;
+    --soft:#fafafa;
+    --black:#161616;
+    --danger:#ff0000;
+    --pink:#ff0077;
+    --purple:#7428ff;
+    --radius:12px;
+  }
+  *{box-sizing:border-box}
+  html,body,button,.app,.screen,.card,.row,.stack,.pill,.player-line,.player-name,.player-role,.word-note,.pass-secret,.pass-count,.discussion-player,.vote-option,.modal,.modal-backdrop,.ghost,.btn,.mono,.eyebrow,h1,h2,h3,p,label,span,div{
+    -webkit-user-select:none;
+    user-select:none;
+    -webkit-touch-callout:none;
+  }
+  input,textarea,select,[contenteditable="true"]{
+    -webkit-user-select:text;
+    user-select:text;
+    -webkit-touch-callout:default;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+  body{min-height:100vh}
+  button,input{font:inherit}
+  button{cursor:pointer;touch-action:manipulation}
+  .app{width:100%;max-width:760px;margin:0 auto;padding:24px 20px 32px}
+  .wide{max-width:900px}
+  .screen{min-height:calc(100vh - 56px);display:flex;flex-direction:column}
+  .center-screen{align-items:center;text-align:center;justify-content:center}
+  .eyebrow{font:13px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;color:#666;margin:0 0 14px}
+  h1{font-size:clamp(32px,9vw,52px);line-height:1.03;letter-spacing:-.045em;margin:0 0 10px;font-weight:750}
+  h2{font-size:31px;line-height:1.06;letter-spacing:-.04em;margin:0 0 8px;font-weight:750}
+  h3{font-size:20px;margin:0 0 8px;letter-spacing:-.02em}
+  p{margin:0;color:#555;font-size:16px;line-height:1.45}
+  .sub{margin-bottom:26px}
+  .section-title{font-size:17px;margin-bottom:3px}
+  .card{border:1px solid var(--line);border-radius:var(--radius);background:#fff;padding:22px;margin-top:14px}
+  .card.tight{padding:0 20px}
+  .row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .stack{display:flex;flex-direction:column;gap:12px}
+  .muted{color:#8a8a8a}
+  .mono{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#666}
+  .small{font-size:14px}
+  .btn{border:1px solid var(--line);background:#fff;color:#161616;border-radius:999px;min-height:52px;padding:0 22px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:520}
+  .btn.black{background:var(--black);border-color:var(--black);color:#fff}
+  .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
+  .btn.full{width:100%}
+  .btn.smallbtn{min-height:38px;padding:0 14px;font-size:14px}
+  .ghost{border:0;background:transparent;padding:10px;color:#222;text-align:center}
+  .ghost.full{width:100%;display:flex;align-items:center;justify-content:center}
+  .bottom-actions{margin-top:auto;padding-top:24px}
+  .bottom-actions .btn{margin-top:12px}
+  .count-control{display:flex;align-items:center;gap:9px}
+  .count-control button{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:#fff;color:#111;font-size:18px;line-height:1}
+  .count-value{min-width:64px;text-align:center;border:1px solid var(--line);height:38px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+  .role-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+  .role-item{min-width:0}
+  .role-label{font-size:14px;color:#555;margin-bottom:8px}
+  .role-box{display:flex;gap:8px;align-items:center}
+  .role-box button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:#fff}
+  .role-num{flex:1;height:38px;border:1px solid var(--line);border-radius:7px;display:flex;align-items:center;justify-content:center}
+  .summary{margin-top:18px}
+  .pill-wrap{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:14px;line-height:1;user-select:none}
+  .pill.on{background:#161616;border-color:#161616;color:white}
+  .pill.custom{background:#fff}
+  .pill.custom.on{background:#161616;color:#fff;border-color:#161616}
+  .input{width:100%;height:38px;padding:0 13px;border:1px solid var(--line);border-radius:7px;outline:none;background:#fff;color:#111}
+  .input:focus{border-color:#888;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
+  .players-table{margin-top:8px}
+  .player-line{height:49px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}
+  .player-line:last-child{border-bottom:0}
+  .player-name{font-size:16px}
+  .player-role{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#666;text-align:right}
+  .player-role.infiltrator{color:var(--purple)}
+  .player-role.white{color:#111}
+  .player-role.elim{color:#666}
+  .word-note{margin-top:14px;font-size:14px;color:#555}
+  .center-orb{width:224px;height:224px;border-radius:50%;background:#161616;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:19px;line-height:1.25;font-weight:600;margin:24px auto;touch-action:none;user-select:none;-webkit-user-select:none}
+  .center-orb.revealed{width:min(520px,calc(100vw - 40px));height:auto;min-height:224px;border-radius:18px;padding:28px;box-sizing:border-box}
+  .pass-secret{width:100%;text-align:center}.pass-secret h1{margin:8px 0 10px}.pass-secret p{margin:0;font-size:16px;line-height:1.5}.pass-secret .footer-note{margin-top:20px;color:#aaa}
+  .pass-back{margin-top:10px}.peek-secret{margin:12px 0 18px}.peek-secret h3{margin:6px 0 0}.peek-secret.hidden{display:none}
+  .pass-count{margin-top:14px}
+  .reveal-wrap{max-width:560px;width:100%;margin:0 auto}
+  .peek-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .peek-card{border:1px solid var(--line);border-radius:10px;height:48px;background:#fafafa;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+  .eye{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:#fff;font-size:14px}
+  .discussion-list{margin-top:30px}
+  .discussion-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .discussion-player{border:1px solid var(--line);background:#fafafa;border-radius:10px;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+  .vote-list{margin-top:28px;display:grid;gap:9px}
+  .vote-option{border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.04);border-radius:9px;background:#fff;min-height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:16px}
+  .vote-option span:last-child{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#666}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.31);display:none;align-items:center;justify-content:center;padding:22px;z-index:20}
+  .modal-backdrop.show{display:flex}
+  .modal{width:min(100%,384px);background:#fff;border-radius:13px;padding:24px 20px 20px;box-shadow:0 20px 60px rgba(0,0,0,.16);text-align:center}
+  .modal h3{font-size:23px;margin-bottom:18px}
+  .modal p{font-size:14px;line-height:1.45;margin-bottom:18px}
+  .modal .btn{margin-top:7px}
+  .modal .ghost{width:100%}
+  .field-label{font-size:14px;color:#555;margin-bottom:7px;display:block}
+  .inline-field{display:flex;gap:8px}
+  .inline-field .input{flex:1}
+  .linkbtn{border:0;background:transparent;text-decoration:underline;padding:0;color:#333}
+  .notice{padding:11px 13px;border:1px solid var(--line);background:#fafafa;border-radius:9px;font-size:13px;color:#555;line-height:1.4}
+  .hidden{display:none!important}
+  .danger-text{color:#d40000}
+  .winner{text-align:center;margin-top:10px}
+  .win-role{font-size:18px;margin-top:8px}
+  .footer-note{margin-top:16px;font-size:12px;color:#999;text-align:center}
+  .setup-header{margin-bottom:24px}
+  .spacer{height:18px}
+  @media(max-width:640px){
+    .app{padding:20px 20px 28px}
+    .screen{min-height:calc(100vh - 48px)}
+    .card{padding:20px;margin-top:12px}
+    .role-grid{grid-template-columns:1fr;gap:14px}
+    .discussion-grid{grid-template-columns:1fr 1fr}
+    .peek-grid{grid-template-columns:1fr 1fr}
+    h1{font-size:44px}
+    h2{font-size:30px}
+  }
+  @media(min-width:700px){.mobile-title{font-size:54px}}
+</style>
+</head>
+<body>
+<div id="app" class="app"></div>
+<div id="modalRoot"></div>
+<script>
+(() => {
+  'use strict';
+
+  const STORAGE_KEY = 'mrwhite_game_v1';
+  const DEFAULT_STATE = {
+    screen:'setup',
+    playerCount:5,
+    roles:{civilian:3, undercover:1, white:1},
+    difficulty:'medium',
+    categories:['Food','Drinks','Places','Objects','Sports','Animals','Movies & TV','Tech','Nature','People'],
+    customMode:false,
+    mysteryMode:true,
+    mysteryModeConfigured:true,
+    customCivilian:'',
+    customUndercover:'',
+    playerNames:['Player 1','Player 2','Player 3','Player 4','Player 5'],
+    players:[],
+    currentPassIndex:0,
+    currentRevealIndex:null,
+    revealed:false,
+    discussionDone:false,
+    eliminated:[],
+    round:1,
+    words:null,
+    lastWinner:null
+  };
+
+  const CATEGORIES = ['Food','Drinks','Places','Objects','Sports','Animals','Movies & TV','Tech','Nature','People','Football','Custom +','Anime','Horror','Music','Christmas','Video Games','Superheroes & Villains','Sci-Fi & Fantasy','Fitness & Gym','Travel','Vehicles','Instruments','Dinosaurs','Phobias','History','Office','Programming','Fashion','Space','Deep Sea','Landmarks','Furniture & Decor','Tools & Hardware','Holidays & Celebrations','Hobbies & Crafts','Bollywood'];
+
+  const WORDS = {
+    Food:[['Salsa','Guacamole'],['Pizza','Lasagna'],['Burger','Sandwich'],['Pancake','Waffle'],['Biryani','Pulao'],['Dosa','Idli'],['Noodles','Pasta'],['Popcorn','Nachos'],['Ketchup','Mustard'],['Taco','Burrito']],
+    Drinks:[['Coffee','Tea'],['Cola','Soda'],['Lemonade','Iced Tea'],['Milkshake','Smoothie'],['Juice','Squash'],['Whisky','Brandy'],['Coconut Water','Tender Coconut'],['Hot Chocolate','Cocoa']],
+    Places:[['Beach','Island'],['Airport','Train Station'],['Museum','Gallery'],['Hospital','Clinic'],['School','College'],['Temple','Mosque'],['Cinema','Theatre'],['Market','Mall']],
+    Objects:[['Umbrella','Raincoat'],['Backpack','Suitcase'],['Mirror','Window'],['Clock','Watch'],['Pillow','Cushion'],['Knife','Sword'],['Bottle','Thermos'],['Key','Lock']],
+    Sports:[['Cricket','Baseball'],['Football','Rugby'],['Tennis','Badminton'],['Boxing','Wrestling'],['Golf','Mini Golf'],['Swimming','Diving'],['Basketball','Netball'],['Hockey','Lacrosse']],
+    Animals:[['Lion','Tiger'],['Cat','Leopard'],['Dog','Wolf'],['Horse','Donkey'],['Elephant','Rhino'],['Monkey','Gorilla'],['Penguin','Puffin'],['Shark','Dolphin']],
+    'Movies & TV':[['Detective','Police Officer'],['Superhero','Villain'],['Actor','Stuntman'],['Director','Producer'],['Zombie','Vampire'],['Spaceship','Submarine'],['Comedy','Parody'],['Sequel','Remake']],
+    Tech:[['Laptop','Desktop'],['Keyboard','Typewriter'],['Mouse','Trackpad'],['Camera','Camcorder'],['Phone','Tablet'],['Browser','Search Engine'],['Robot','Drone'],['WiFi','Bluetooth']],
+    Nature:[['Mountain','Hill'],['River','Lake'],['Forest','Jungle'],['Rain','Drizzle'],['Cloud','Fog'],['Thunder','Lightning'],['Sunrise','Sunset'],['Volcano','Earthquake']],
+    People:[['Doctor','Nurse'],['Teacher','Professor'],['Pilot','Driver'],['Chef','Baker'],['Artist','Designer'],['Singer','Actor'],['Police','Detective'],['Farmer','Gardener']],
+    Football:[['Goalkeeper','Defender'],['Penalty','Free Kick'],['Stadium','Pitch'],['Corner','Throw In'],['Coach','Referee'],['Striker','Winger']],
+    Anime:[['Ninja','Samurai'],['Dragon','Demon'],['Hero','Protagonist'],['Sword','Katana'],['Manga','Comic']],
+    Horror:[['Ghost','Spirit'],['Haunted House','Abandoned House'],['Vampire','Werewolf'],['Witch','Wizard'],['Cemetery','Graveyard']],
+    Music:[['Guitar','Bass'],['Piano','Keyboard'],['Singer','Rapper'],['Concert','Festival'],['Drums','Percussion']],
+    Christmas:[['Santa','Elf'],['Christmas Tree','Pine Tree'],['Gift','Present'],['Snowman','Snowflake'],['Carols','Anthems']],
+    'Video Games':[['Controller','Joystick'],['Boss','Enemy'],['Level','Stage'],['Quest','Mission'],['Console','Arcade']],
+    'Superheroes & Villains':[['Batman','Robin'],['Superman','Homelander'],['Joker','Riddler'],['Hero','Antihero'],['Cape','Mask']],
+    'Sci-Fi & Fantasy':[['Alien','Robot'],['Wizard','Sorcerer'],['Magic','Technology'],['Spaceship','Starship'],['Dragon','Phoenix']],
+    'Fitness & Gym':[['Treadmill','Cross Trainer'],['Dumbbell','Kettlebell'],['Yoga','Pilates'],['Squat','Lunge'],['Trainer','Coach']],
+    Travel:[['Passport','Visa'],['Hotel','Hostel'],['Suitcase','Backpack'],['Tourist','Traveller'],['Flight','Journey']],
+    Vehicles:[['Car','Taxi'],['Bus','Coach'],['Train','Metro'],['Bike','Motorcycle'],['Ship','Boat'],['Helicopter','Plane']],
+    Instruments:[['Violin','Cello'],['Flute','Clarinet'],['Trumpet','Trombone'],['Drums','Tabla'],['Sitar','Guitar']],
+    Dinosaurs:[['T-Rex','Allosaurus'],['Triceratops','Stegosaurus'],['Raptor','Velociraptor'],['Dinosaur','Dragon']],
+    Phobias:[['Heights','Flying'],['Darkness','Silence'],['Spiders','Snakes'],['Crowds','Closed Spaces']],
+    History:[['King','Emperor'],['Castle','Fort'],['Revolution','War'],['Ancient Rome','Ancient Greece']],
+    Office:[['Meeting','Conference'],['Printer','Scanner'],['Manager','Director'],['Desk','Cubicle']],
+    Programming:[['JavaScript','TypeScript'],['Python','Ruby'],['Compiler','Interpreter'],['Bug','Error'],['Function','Method']],
+    Fashion:[['Suit','Tuxedo'],['Saree','Lehenga'],['Sneakers','Trainers'],['Jacket','Coat']],
+    Space:[['Moon','Mars'],['Astronaut','Cosmonaut'],['Rocket','Shuttle'],['Galaxy','Nebula']],
+    'Deep Sea':[['Whale','Shark'],['Coral','Seaweed'],['Submarine','Underwater Drone'],['Trench','Canyon']],
+    Landmarks:[['Eiffel Tower','Arc de Triomphe'],['Taj Mahal','Red Fort'],['Statue of Liberty','Golden Gate Bridge'],['Big Ben','London Eye']],
+    'Furniture & Decor':[['Sofa','Couch'],['Curtain','Blind'],['Lamp','Lantern'],['Table','Desk']],
+    'Tools & Hardware':[['Hammer','Mallet'],['Screwdriver','Drill'],['Saw','Blade'],['Nail','Screw']],
+    'Holidays & Celebrations':[['Birthday','Anniversary'],['Wedding','Engagement'],['Festival','Fair'],['Party','Gathering']],
+    'Hobbies & Crafts':[['Painting','Drawing'],['Knitting','Crochet'],['Photography','Filmmaking'],['Gardening','Farming']],
+    Bollywood:[['Hero','Star'],['Item Song','Dance Number'],['Director','Producer'],['Climax','Interval'],['Masala','Action']]
+  };
+
+  let state = loadState();
+
+  function clone(v){ return JSON.parse(JSON.stringify(v)); }
+  function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  function loadState(){
+    try{
+      const raw=localStorage.getItem(STORAGE_KEY);
+      if(!raw) return clone(DEFAULT_STATE);
+      const parsed=JSON.parse(raw);
+      const merged=Object.assign(clone(DEFAULT_STATE),parsed,{roles:Object.assign(clone(DEFAULT_STATE.roles),parsed.roles||{})});
+      if(parsed.mysteryModeConfigured !== true){
+        merged.mysteryMode=true;
+        merged.mysteryModeConfigured=true;
+      }
+      return merged;
+    } catch(e){ return clone(DEFAULT_STATE); }
+  }
+
+  function esc(str){ return String(str??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c])); }
+  function normalizeCounts(){
+    let p=Math.max(3,Math.min(20,Number(state.playerCount)||5));
+    let u=Math.max(0,Number(state.roles.undercover)||0);
+    let w=Math.max(0,Number(state.roles.white)||0);
+    if(u+w>p-1){
+      const overflow=u+w-(p-1);
+      if(w>=overflow) w-=overflow; else { u-=overflow-w; w=0; }
+    }
+    let c=p-u-w;
+    if(c<1){c=1}
+    state.playerCount=p; state.roles={civilian:c,undercover:u,white:w};
+  }
+  function syncNames(){
+    const n=state.playerCount;
+    state.playerNames=Array.from({length:n},(_,i)=>state.playerNames[i]||`Player ${i+1}`);
+  }
+  function resetRoundData(){
+    state.players=[]; state.currentPassIndex=0; state.currentRevealIndex=null; state.revealed=false; state.discussionDone=false; state.eliminated=[]; state.words=null; state.lastWinner=null;
+  }
+
+  function setScreen(name){ state.screen=name; save(); render(); window.scrollTo({top:0,behavior:'auto'}); }
+  function getActivePlayers(){ return state.players.filter(p=>!p.eliminated); }
+  function currentPlayer(){ return state.players[state.currentPassIndex]; }
+
+  function chooseWords(){
+    if(state.customMode && state.customCivilian.trim() && state.customUndercover.trim()) return {civilian:state.customCivilian.trim(),undercover:state.customUndercover.trim()};
+    let pool=[];
+    const cats=state.categories.filter(c=>c!=='Custom +' && WORDS[c]);
+    cats.forEach(c=>pool.push(...WORDS[c]));
+    if(!pool.length) pool=[['Salsa','Guacamole']];
+    const pair=pool[Math.floor(Math.random()*pool.length)];
+    if(state.difficulty==='easy') return {civilian:pair[0],undercover:pair[1]};
+    if(state.difficulty==='hard') return Math.random()<.5 ? {civilian:pair[1],undercover:pair[0]} : {civilian:pair[0],undercover:pair[1]};
+    return {civilian:pair[0],undercover:pair[1]};
+  }
+  function startRound(){
+    normalizeCounts(); syncNames();
+    const roles=[];
+    for(let i=0;i<state.roles.civilian;i++) roles.push('civilian');
+    for(let i=0;i<state.roles.undercover;i++) roles.push('undercover');
+    for(let i=0;i<state.roles.white;i++) roles.push('white');
+    for(let i=roles.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [roles[i],roles[j]]=[roles[j],roles[i]]; }
+    state.players=state.playerNames.map((name,i)=>({name:name.trim()||`Player ${i+1}`,role:roles[i],eliminated:false}));
+    state.words=chooseWords();
+    state.currentPassIndex=0; state.revealed=false; state.currentRevealIndex=null; state.discussionDone=false; state.eliminated=[]; state.lastWinner=null; state.screen='pass';
+    save(); render();
+  }
+
+  function roleText(role){ if(role==='civilian')return 'Civilian'; if(role==='undercover')return 'Undercover'; return 'Mr White'; }
+  function roleWord(player){
+    if(player.role==='white') return 'Mr White';
+    return player.role==='undercover' ? state.words.undercover : state.words.civilian;
+  }
+  function remainingCounts(){
+    const active=getActivePlayers();
+    return {
+      civilians:active.filter(p=>p.role==='civilian').length,
+      undercover:active.filter(p=>p.role==='undercover').length,
+      white:active.filter(p=>p.role==='white').length,
+    };
+  }
+  function checkWinner(){
+    const r=remainingCounts();
+    if(r.undercover===0 && r.white===0) return 'Civilians';
+    if(r.civilians===0) return 'Undercover team';
+    return null;
+  }
+
+  function openModal(html){ document.getElementById('modalRoot').innerHTML=`<div class="modal-backdrop show" id="backdrop"><div class="modal">${html}</div></div>`; }
+  function closeModal(){document.getElementById('modalRoot').innerHTML='';}
+
+  function showRevealModal(index){
+    const player=state.players[index];
+    state.currentRevealIndex=index;
+    save();
+    const secretWord=roleWord(player);
+    const isWhite=player.role==='white';
+    const secretLabel=isWhite ? 'Your secret role' : 'Your secret word';
+    openModal(`<div class="eyebrow">Heads up</div><h3>Make sure no one is looking.</h3><p>${esc(player.name)}, tap and hold to peek.</p><div id="peekSecret" class="peek-secret hidden"></div><button class="btn black full" id="holdPeek">Hold to reveal</button><button class="ghost" id="cancelModal">Back</button>`);
+    const hold=document.getElementById('holdPeek');
+    const secret=document.getElementById('peekSecret');
+    let timer=null;
+    const show=()=>{
+      if(timer) return;
+      timer=setTimeout(()=>{
+        const message=isWhite
+          ? '<div class="eyebrow">Your secret role</div><h3>Mr White</h3><p>You do not receive a word. Listen carefully and deduce the civilian word.</p>'
+          : `<div class="eyebrow">${secretLabel}</div><h3>${esc(secretWord)}</h3>`;
+        secret.innerHTML=message;
+        secret.classList.remove('hidden');
+      },180);
+    };
+    const hide=()=>{
+      if(timer){clearTimeout(timer);timer=null;}
+      secret.classList.add('hidden');
+      secret.innerHTML='';
+    };
+    hold.addEventListener('pointerdown',show);
+    hold.addEventListener('pointerup',hide);
+    hold.addEventListener('pointercancel',hide);
+    hold.addEventListener('pointerleave',hide);
+    document.getElementById('cancelModal').onclick=()=>{hide();closeModal();};
+  }
+  function finishPass(){ state.currentPassIndex=0; state.screen='discussion'; state.revealed=false; save(); render(); }
+  function nextPass(){
+    if(state.currentPassIndex>=state.players.length-1){finishPass();return;}
+    state.currentPassIndex++; state.revealed=false; save(); render();
+  }
+
+  function chooseElimination(index){
+    const p=state.players[index];
+    if(p.eliminated) return;
+    openModal(`<h3>Eliminate ${esc(p.name)}?</h3><p>Their role will be revealed to the whole table.</p><button class="btn danger full" id="doEliminate">Eliminate</button><button class="ghost" id="cancelModal">Cancel</button>`);
+    document.getElementById('doEliminate').onclick=()=>{closeModal(); eliminate(index)};
+    document.getElementById('cancelModal').onclick=closeModal;
+  }
+  function eliminate(index){
+    state.players[index].eliminated=true;
+    state.eliminated.push(index);
+    const winner=checkWinner();
+    if(winner){ state.lastWinner=winner; state.screen='result'; save(); render(); return; }
+    state.screen='discussion'; save(); render();
+  }
+
+  function newGame(){
+    openModal(`<h3>Start a new game?</h3><p>Current game progress will be cleared and you'll return to setup.</p><button class="btn danger full" id="confirmNewGame">New game</button><button class="ghost full" id="cancelNewGame">Cancel</button>`);
+    const confirmBtn=document.getElementById('confirmNewGame');
+    const cancelBtn=document.getElementById('cancelNewGame');
+    if(confirmBtn) confirmBtn.onclick=()=>{ state=clone(DEFAULT_STATE); save(); closeModal(); render(); };
+    if(cancelBtn) cancelBtn.onclick=closeModal;
+  }
+  function nextRound(){
+    state.round+=1;
+    state.players=state.players.map(p=>({name:p.name,role:p.role,eliminated:false}));
+    state.words=chooseWords();
+    state.currentPassIndex=0;state.currentRevealIndex=null;state.revealed=false;state.eliminated=[];state.lastWinner=null;state.discussionDone=false;state.screen='pass';save();render();
+  }
+
+  function categoryButton(c){ const on=state.categories.includes(c); return `<button class="pill ${on?'on':''}" data-category="${esc(c)}">${esc(c)}</button>`; }
+  function renderSetup(){
+    normalizeCounts(); syncNames();
+    const selected=state.categories.length;
+    return `<div class="screen">
+      <div class="setup-header"><div class="eyebrow">Mr. White by motionkartik</div><h1>New game.</h1><p>Configure the table, then start the round.</p></div>
+      <div class="card"><div class="row"><div><div class="section-title">Players</div><div class="small muted">Recommended: 5–8 for the sharpest deduction.</div></div><div class="count-control"><button id="playerMinus">−</button><div class="count-value" id="playerCount">${state.playerCount}</div><button id="playerPlus">+</button></div></div></div>
+      <div class="card"><div class="section-title">Roles</div><div class="small">Set each role count. Civilians fill the remaining seats.</div>
+        <div class="role-grid">
+          <div class="role-item"><div class="role-label">Civilians</div><div class="role-box"><button data-role="civilian" data-delta="-1">−</button><div class="role-num">${state.roles.civilian}</div><button data-role="civilian" data-delta="1">+</button></div></div>
+          <div class="role-item"><div class="role-label">Undercovers</div><div class="role-box"><button data-role="undercover" data-delta="-1">−</button><div class="role-num">${state.roles.undercover}</div><button data-role="undercover" data-delta="1">+</button></div></div>
+          <div class="role-item"><div class="role-label">Mr Whites</div><div class="role-box"><button data-role="white" data-delta="-1">−</button><div class="role-num">${state.roles.white}</div><button data-role="white" data-delta="1">+</button></div></div>
+        </div>
+        <div class="summary mono">${state.roles.undercover} Undercover · ${state.roles.white} Mr White · ${state.roles.civilian} Civilian</div>
+      </div>
+      <div class="card"><div class="section-title">Difficulty</div><div class="small">How close the Undercover's word is to the Civilian's.</div><div class="role-grid" style="grid-template-columns:repeat(3,1fr);margin-top:16px;gap:8px">
+        ${['easy','medium','hard'].map(d=>`<button class="btn smallbtn ${state.difficulty===d?'black':''}" data-diff="${d}">${d[0].toUpperCase()+d.slice(1)}</button>`).join('')}
+      </div></div>
+      <div class="card"><div class="row"><div class="section-title">Categories <span class="muted">(${selected} selected)</span></div><div class="mono">⌄</div></div><div class="pill-wrap">${CATEGORIES.map(categoryButton).join('')}</div></div>
+      <div class="card"><div class="section-title">Word source</div><div class="stack" style="margin-top:14px">
+        <button class="btn ${!state.customMode?'black':''} full" id="databaseBtn">Use word database</button>
+        <button class="btn ${state.customMode?'black':''} full" id="customBtn">Use custom words</button>
+        ${state.customMode?`<div class="stack"><div><label class="field-label">Civilian word</label><input class="input" id="customCivilian" value="${esc(state.customCivilian)}" placeholder="Example: Ketchup"></div><div><label class="field-label">Undercover word</label><input class="input" id="customUndercover" value="${esc(state.customUndercover)}" placeholder="Example: Mustard"></div></div>`:''}
+      </div></div>
+      <div class="card"><div class="row"><div><div class="section-title">Mystery mode</div><div class="small muted">During the phone pass, civilians and Undercovers see only their word. Mr White still sees their role.</div></div><button class="btn smallbtn ${state.mysteryMode?'black':''}" id="mysteryBtn">${state.mysteryMode?'On':'Off'}</button></div></div>
+      <div class="card"><div class="section-title">Player names <span class="muted">(optional)</span></div><div class="stack" style="margin-top:14px">${state.playerNames.map((n,i)=>`<div class="inline-field"><div class="mono" style="width:44px;display:flex;align-items:center">P${i+1}</div><input class="input player-input" data-index="${i}" value="${esc(n)}"></div>`).join('')}</div></div>
+      <div class="bottom-actions"><button class="btn black full" id="startBtn">Start round →</button></div>
+    </div>`;
+  }
+
+  function passSecretMarkup(){
+    const p=currentPlayer();
+    const isWhite=p.role==='white';
+    const mystery=state.mysteryMode && !isWhite;
+    const eyebrow=isWhite ? 'Your secret role' : (mystery ? 'Your secret word' : 'Your secret role');
+    const title=isWhite ? 'Mr White' : (mystery ? 'Your word' : (p.role==='undercover' ? 'Undercover' : 'Civilian'));
+    const message=isWhite
+      ? 'You do not receive a word. Blend in and deduce the civilian word from the discussion.'
+      : `Your word is <strong>${esc(roleWord(p))}</strong>.`;
+    return `<div class="pass-secret"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>${message}</p><div class="footer-note">Only ${esc(p.name)} should see this.</div></div>`;
+  }
+
+  function renderPass(){
+    const p=currentPlayer();
+    const canBack=state.currentPassIndex>0;
+    const nextLabel=state.currentPassIndex>=state.players.length-1?'Start discussion →':'Pass to next player →';
+    return `<div class="screen center-screen"><div><div class="eyebrow">Pass the phone</div><h1>Pass to ${esc(p.name)}.</h1><p>Tap and hold to reveal your secret.</p><div class="center-orb" id="holdReveal"><span class="hold-label">Hold to<br>reveal</span></div><div class="mono pass-count">Player ${state.currentPassIndex+1} of ${state.players.length}</div><button class="btn black full" id="passNextBtn">${nextLabel}</button>${canBack?'<button class="ghost pass-back" id="backPass">← Back to previous player</button>':''}</div></div>`;
+  }
+
+  function renderReveal(){ return renderPass(); }
+
+  function renderDiscussion(){
+    const active=getActivePlayers();
+    return `<div class="screen"><div style="text-align:center"><div class="eyebrow">Round ${state.round} · Discussion</div><h1 class="mobile-title">Describe your word in one sentence.</h1><p>Go round the table. When you're ready, hit vote.</p></div><div class="discussion-list"><div class="section-title mono">Still in</div><div class="discussion-grid">${active.map((p,idx)=>`<div class="discussion-player"><span>${esc(p.name)}</span><button class="eye" data-peek="${state.players.indexOf(p)}">◉</button></div>`).join('')}</div><div class="small muted" style="text-align:center;margin-top:10px">Tap ◉ next to your name to peek at your word.</div></div><div class="bottom-actions"><button class="btn black full" id="voteBtn">Move to vote →</button><button class="ghost full" id="endGameBtn">End game</button></div></div>`;
+  }
+
+  function renderVote(){
+    const active=getActivePlayers();
+    return `<div class="screen"><div><div class="eyebrow">Round ${state.round} · Vote</div><h2>Who's the infiltrator?</h2><p>Pick the player the table agrees to eliminate.</p></div><div class="vote-list">${active.map((p)=>{const i=state.players.indexOf(p);return `<button class="vote-option" data-vote="${i}"><span>${esc(p.name)}</span><span>Eliminate →</span></button>`}).join('')}</div><div class="bottom-actions"><button class="ghost full" id="backDiscussion">← Back to discussion</button></div></div>`;
+  }
+
+  function renderResult(){
+    const elim=state.eliminated.map(i=>state.players[i]);
+    const latest=elim[elim.length-1];
+    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Round ${state.round} result</div><h1>${esc(state.lastWinner)} win.</h1><p>${latest?`${esc(latest.name)} was ${roleText(latest.role)}.`:''}</p><div class="card"><div class="mono" style="margin-bottom:8px">Round recap</div><div class="players-table">${state.players.map(p=>`<div class="player-line"><span class="player-name">${esc(p.name)}</span><span class="player-role ${p.role==='undercover'?'infiltrator':p.role==='white'?'white':''}">${p.eliminated?esc(roleText(p.role))+' · eliminated':esc(roleText(p.role))}</span></div>`).join('')}</div><div class="word-note">The word was <strong>${esc(state.words.civilian)}</strong>. Undercover word was <strong>${esc(state.words.undercover)}</strong>.</div></div><div class="bottom-actions"><button class="btn black full" id="nextRoundBtn">Next round, same group →</button><button class="btn full" id="newGameBtn">New game</button></div></div></div>`;
+  }
+
+  function render(){
+    const app=document.getElementById('app');
+    app.className='app '+(state.screen==='setup'?'wide':'');
+    if(state.screen==='setup') app.innerHTML=renderSetup();
+    else if(state.screen==='pass') app.innerHTML=state.revealed?renderReveal():renderPass();
+    else if(state.screen==='discussion') app.innerHTML=renderDiscussion();
+    else if(state.screen==='vote') app.innerHTML=renderVote();
+    else if(state.screen==='result') app.innerHTML=renderResult();
+    bind();
+  }
+
+  function bind(){
+    document.querySelectorAll('[data-category]').forEach(b=>b.onclick=()=>{
+      const c=b.dataset.category;
+      if(c==='Custom +'){state.customMode=true;save();render();return;}
+      if(state.categories.includes(c)) state.categories=state.categories.filter(x=>x!==c); else state.categories.push(c);
+      save();render();
+    });
+    const pm=document.getElementById('playerMinus'); if(pm) pm.onclick=()=>{if(state.playerCount>3){state.playerCount--; if(state.roles.civilian>1) state.roles.civilian--; else {if(state.roles.white>0)state.roles.white--; else state.roles.undercover--; } normalizeCounts();syncNames();save();render();}};
+    const pp=document.getElementById('playerPlus'); if(pp) pp.onclick=()=>{if(state.playerCount<20){state.playerCount++;state.roles.civilian++;syncNames();save();render();}};
+    document.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{
+      const r=b.dataset.role,d=Number(b.dataset.delta);
+      if(d>0){
+        if(state.roles.civilian>1 || r==='civilian'){
+          if(r==='civilian' && state.roles.civilian<state.playerCount) state.roles.civilian++;
+          else if(r!=='civilian' && state.roles[r] < state.playerCount-1){state.roles[r]++;state.roles.civilian--;}
+        }
+      }else{
+        if(r==='civilian'){if(state.roles.civilian>1)state.roles.civilian--;}
+        else if(state.roles[r]>0){state.roles[r]--;state.roles.civilian++;}
+      }
+      normalizeCounts();save();render();
+    });
+    document.querySelectorAll('[data-diff]').forEach(b=>b.onclick=()=>{state.difficulty=b.dataset.diff;save();render();});
+    const db=document.getElementById('databaseBtn'); if(db) db.onclick=()=>{state.customMode=false;save();render();};
+    const cb=document.getElementById('customBtn'); if(cb) cb.onclick=()=>{state.customMode=true;save();render();};
+    const mystery=document.getElementById('mysteryBtn'); if(mystery) mystery.onclick=()=>{state.mysteryMode=!state.mysteryMode;state.mysteryModeConfigured=true;save();render();};
+    document.querySelectorAll('.player-input').forEach(i=>i.oninput=()=>{state.playerNames[Number(i.dataset.index)]=i.value;save();});
+    const cc=document.getElementById('customCivilian'); if(cc) cc.oninput=()=>{state.customCivilian=cc.value;save();};
+    const cu=document.getElementById('customUndercover'); if(cu) cu.oninput=()=>{state.customUndercover=cu.value;save();};
+    const start=document.getElementById('startBtn'); if(start) start.onclick=()=>{ if(state.customMode && (!state.customCivilian.trim()||!state.customUndercover.trim())){alert('Enter both custom words.');return;} startRound(); };
+
+    const hold=document.getElementById('holdReveal');
+    if(hold){
+      const p=currentPlayer();
+      let timer=null;
+      const show=()=>{
+        if(timer) return;
+        timer=setTimeout(()=>{
+          hold.innerHTML=passSecretMarkup();
+          hold.classList.add('revealed');
+        },180);
+      };
+      const hide=()=>{
+        if(timer){clearTimeout(timer);timer=null;}
+        hold.classList.remove('revealed');
+        hold.innerHTML='<span class="hold-label">Hold to<br>reveal</span>';
+      };
+      hold.addEventListener('pointerdown',show);
+      hold.addEventListener('pointerup',hide);
+      hold.addEventListener('pointercancel',hide);
+      hold.addEventListener('pointerleave',hide);
+    }
+    const passNext=document.getElementById('passNextBtn'); if(passNext) passNext.onclick=nextPass;
+    const backPass=document.getElementById('backPass'); if(backPass) backPass.onclick=()=>{state.currentPassIndex=Math.max(0,state.currentPassIndex-1);state.revealed=false;save();render();};
+    document.querySelectorAll('[data-peek]').forEach(b=>b.onclick=()=>showRevealModal(Number(b.dataset.peek)));
+    const vote=document.getElementById('voteBtn'); if(vote) vote.onclick=()=>{state.screen='vote';save();render();};
+    const end=document.getElementById('endGameBtn'); if(end) end.onclick=()=>{
+      openModal(`<h3>End game?</h3><p>All current progress will be cleared and you'll return to setup.</p><button class="btn danger full" id="confirmEnd">End game</button><button class="ghost full" id="cancelEnd">Cancel</button>`);
+      document.getElementById('confirmEnd').onclick=()=>{state=clone(DEFAULT_STATE);save();closeModal();render();};
+      document.getElementById('cancelEnd').onclick=closeModal;
+    };
+    document.querySelectorAll('[data-vote]').forEach(b=>b.onclick=()=>chooseElimination(Number(b.dataset.vote)));
+    const back=document.getElementById('backDiscussion'); if(back) back.onclick=()=>{state.screen='discussion';save();render();};
+    const nr=document.getElementById('nextRoundBtn'); if(nr) nr.onclick=nextRound;
+    const ng=document.getElementById('newGameBtn'); if(ng) ng.onclick=newGame;
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
