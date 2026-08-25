@@ -535,7 +535,7 @@
         <div class="summary mono">${state.roles.undercover} Undercover · ${state.roles.white} Mr White · ${state.roles.civilian} Civilian</div>
       </div>
       <div class="card"><div class="section-title">Word source</div><div class="stack" style="margin-top:14px">
-        <button class="btn ${!state.customMode ? 'black' : ''} full" id="databaseBtn">Random</button>
+        <button class="btn ${!state.customMode ? 'black' : ''} full" id="databaseBtn">From Category</button>
         <button class="btn ${state.customMode ? 'black' : ''} full" id="customBtn">Custom</button>
         ${state.customMode ? `<div class="stack"><div><label class="field-label" for="customCivilian">Civilian word</label><input class="input" id="customCivilian" value="${esc(state.customCivilian)}" placeholder="Example: Ketchup" autocomplete="off" spellcheck="false"></div><div><label class="field-label" for="customUndercover">Undercover word</label><input class="input" id="customUndercover" value="${esc(state.customUndercover)}" placeholder="Example: Mustard" autocomplete="off" spellcheck="false"></div></div>` : ''}
       </div></div>
