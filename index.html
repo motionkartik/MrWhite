@@ -535,8 +535,8 @@
         <div class="summary mono">${state.roles.undercover} Undercover · ${state.roles.white} Mr White · ${state.roles.civilian} Civilian</div>
       </div>
       <div class="card"><div class="section-title">Word source</div><div class="stack" style="margin-top:14px">
-        <button class="btn ${!state.customMode ? 'black' : ''} full" id="databaseBtn">Use word database</button>
-        <button class="btn ${state.customMode ? 'black' : ''} full" id="customBtn">Use custom words</button>
+        <button class="btn ${!state.customMode ? 'black' : ''} full" id="databaseBtn">Random</button>
+        <button class="btn ${state.customMode ? 'black' : ''} full" id="customBtn">Custom</button>
         ${state.customMode ? `<div class="stack"><div><label class="field-label" for="customCivilian">Civilian word</label><input class="input" id="customCivilian" value="${esc(state.customCivilian)}" placeholder="Example: Ketchup" autocomplete="off" spellcheck="false"></div><div><label class="field-label" for="customUndercover">Undercover word</label><input class="input" id="customUndercover" value="${esc(state.customUndercover)}" placeholder="Example: Mustard" autocomplete="off" spellcheck="false"></div></div>` : ''}
       </div></div>
       ${!state.customMode ? `<div class="card"><button class="row accordion-toggle" data-accordion="categories" aria-expanded="${uiExpanded.categories}"><div class="section-title">Categories <span class="muted">(${selected} selected)</span></div><div class="mono accordion-chevron ${uiExpanded.categories ? 'open' : ''}">⌄</div></button>${selected === 0 ? '<div class="notice" style="margin-top:12px">Pick at least one category — otherwise the game falls back to a random pair.</div>' : ''}<div class="pill-wrap ${uiExpanded.categories ? '' : 'hidden'}">${CATEGORIES.map(categoryButton).join('')}</div></div>` : ''}
@@ -550,7 +550,8 @@
     const p = currentPlayer();
     const canBack = state.currentPassIndex > 0;
     const last = state.currentPassIndex >= state.players.length - 1;
-    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Pass the phone</div><h1>Pass to ${esc(p.name)}.</h1><p>Tap and hold to reveal your secret.</p><div class="center-orb" data-hold="pass" id="holdReveal" tabindex="0" role="button" aria-label="Hold to reveal your secret"><span class="hold-label">Hold to<br>reveal</span></div><div class="mono pass-count">Player ${state.currentPassIndex + 1} of ${state.players.length}</div><button class="btn black full" id="passNextBtn">${last ? 'Start discussion →' : 'Pass to next player →'}</button>${canBack ? '<button class="ghost pass-back" id="backPass">← Back to previous player</button>' : ''}</div></div>`;
+    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Pass the phone</div><h1>Pass to ${esc(p.name)}.</h1><p>Tap and hold to reveal your secret.</p><div class="center-orb" data-hold="pass" id="holdReveal" tabindex="0" role="button" aria-label="Hold to reveal your secret"><span class="hold-label">Hold to<br>reveal</span></div>
+    <button class="btn black full" id="passNextBtn">${last ? 'Start discussion →' : 'Pass to next player →'}</button>${canBack ? '<button class="ghost pass-back" id="backPass">← Back to previous player</button>' : ''}</div></div>`;
   }
 
   function renderDiscussion(){
