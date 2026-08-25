@@ -17,6 +17,7 @@
     --black:#161616;
     --danger:#ff0000;
     --purple:#7428ff;
+    --green:#0a8a3b;
     --radius:12px;
   }
   *{box-sizing:border-box}
@@ -80,14 +81,22 @@
   .pill.on{background:#161616;border-color:#161616;color:#fff}
   .input{width:100%;height:44px;padding:0 13px;border:1px solid var(--line);border-radius:7px;outline:none;background:#fff;color:#111}
   .input:focus{border-color:#888;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
+  .pair-row{display:flex;gap:8px;margin-top:10px}
+  .pair-row > button{flex:1;min-width:0}
   .players-table{margin-top:8px}
   .player-line{height:49px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}
   .player-line:last-child{border-bottom:0}
   .player-name{font-size:16px}
   .player-role{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#666;text-align:right}
-  .player-role.infiltrator{color:var(--purple)}
-  .player-role.white{color:#111}
-  .word-note{margin-top:14px;font-size:14px;color:#555}
+  .player-role.role-civilian{color:var(--green)}
+  .player-role.role-undercover{color:var(--danger)}
+  .player-role.role-white{color:var(--purple)}
+  .role-text{font-weight:700}
+  .role-text.role-civilian{color:var(--green)}
+  .role-text.role-undercover{color:var(--danger)}
+  .role-text.role-white{color:var(--purple)}
+  .word-note{margin-top:18px;font-size:20px;color:#161616;line-height:1.5}
+  .word-note strong{font-weight:700}
   .center-orb{width:224px;height:224px;border-radius:50%;background:#161616;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:19px;line-height:1.25;font-weight:600;margin:24px auto}
   .center-orb.revealed{width:min(520px,calc(100vw - 40px));height:auto;min-height:224px;border-radius:18px;padding:28px}
   .pass-secret{width:100%;text-align:center}
@@ -314,6 +323,9 @@
     if(role === 'white') return 'Mr White';
     return role === 'undercover' ? 'an Undercover' : 'a Civilian';
   }
+  function rolePhraseColored(role){
+    return `<span class="role-text role-${role}">${rolePhrase(role)}</span>`;
+  }
   function roleWord(player){
     if(player.role === 'white') return 'Mr White';
     return player.role === 'undercover' ? state.words.undercover : state.words.civilian;
@@ -428,12 +440,12 @@
   function closeViaCancel(){ const fn = modalCancelFn; closeModal(); if(fn) fn(); }
 
   function showVotedOutModal(p){
-    openModal(`<h3>Voted out ${esc(p.name)} was ${rolePhrase(p.role)}.</h3>
+    openModal(`<h3>Voted out ${esc(p.name)} was ${rolePhraseColored(p.role)}.</h3>
       <button class="btn black full" id="contBtn">Continue →</button>`);
   }
 
   function showWhiteGuessModal(p){
-    openModal(`<h3>Voted out ${esc(p.name)} was Mr White.</h3>
+    openModal(`<h3>Voted out ${esc(p.name)} was <span class="role-text role-white">Mr White</span>.</h3>
       <p>Mr White gets one chance to guess the civilian word and steal the win.</p>
       <input class="input" id="whiteGuessInput" placeholder="Civilian word" autocomplete="off" autocapitalize="off" spellcheck="false">
       <button class="btn black full" id="whiteGuessBtn" disabled>Lock in guess →</button>
@@ -539,7 +551,7 @@
         <button class="btn ${state.customMode ? 'black' : ''} full" id="customBtn">Custom</button>
         ${state.customMode ? `<div class="stack"><div><label class="field-label" for="customCivilian">Civilian word</label><input class="input" id="customCivilian" value="${esc(state.customCivilian)}" placeholder="Example: Ketchup" autocomplete="off" spellcheck="false"></div><div><label class="field-label" for="customUndercover">Undercover word</label><input class="input" id="customUndercover" value="${esc(state.customUndercover)}" placeholder="Example: Mustard" autocomplete="off" spellcheck="false"></div></div>` : ''}
       </div></div>
-      ${!state.customMode ? `<div class="card"><button class="row accordion-toggle" data-accordion="categories" aria-expanded="${uiExpanded.categories}"><div class="section-title">Categories <span class="muted">(${selected} selected)</span></div><div class="mono accordion-chevron ${uiExpanded.categories ? 'open' : ''}">⌄</div></button>${selected === 0 ? '<div class="notice" style="margin-top:12px">Pick at least one category — otherwise the game falls back to a random pair.</div>' : ''}<div class="pill-wrap ${uiExpanded.categories ? '' : 'hidden'}">${CATEGORIES.map(categoryButton).join('')}</div></div>` : ''}
+      ${!state.customMode ? `<div class="card"><button class="row accordion-toggle" data-accordion="categories" aria-expanded="${uiExpanded.categories}"><div class="section-title">Categories <span class="muted">(${selected} selected)</span></div><div class="mono accordion-chevron ${uiExpanded.categories ? 'open' : ''}">⌄</div></button>${selected === 0 ? '<div class="notice" style="margin-top:12px">Pick at least one category — otherwise the game falls back to a random pair.</div>' : ''}<div class="${uiExpanded.categories ? '' : 'hidden'}"><div class="pill-wrap">${CATEGORIES.map(categoryButton).join('')}</div><div class="pair-row"><button class="ghost full" id="selectAllCategoriesBtn">Select all</button><button class="ghost full" id="deselectAllCategoriesBtn">Deselect all</button></div></div></div>` : ''}
       <div class="card"><button class="row accordion-toggle" data-accordion="playerNames" aria-expanded="${uiExpanded.playerNames}"><div class="section-title">Player names <span class="muted">(optional)</span></div><div class="mono accordion-chevron ${uiExpanded.playerNames ? 'open' : ''}">⌄</div></button>${dup ? '<div class="notice" style="margin-top:12px">Two players share a name — votes and peeks may get confusing.</div>' : ''}<div class="stack ${uiExpanded.playerNames ? '' : 'hidden'}" style="margin-top:14px">${state.playerNames.map((n, i) => `<div class="inline-field"><label class="mono" style="width:44px;display:flex;align-items:center" for="nameInput${i}">P${i+1}</label><input class="input player-input" id="nameInput${i}" data-index="${i}" value="${esc(n)}" autocomplete="off" spellcheck="false"></div>`).join('')}<button class="ghost full" id="resetNamesBtn">Reset names</button></div></div>
       <div class="card"><div class="row"><div><div class="section-title">Mystery mode</div><div class="small muted">During the phone pass, civilians and Undercovers see only their word. Mr White still sees their role.</div></div><button class="btn smallbtn ${state.mysteryMode ? 'black' : ''}" id="mysteryBtn" aria-pressed="${state.mysteryMode}">${state.mysteryMode ? 'On' : 'Off'}</button></div></div>
       <div class="bottom-actions"><button class="btn black full" id="startBtn">Start round →</button></div>
@@ -551,13 +563,13 @@
     const canBack = state.currentPassIndex > 0;
     const last = state.currentPassIndex >= state.players.length - 1;
     return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Pass the phone</div><h1>Pass to ${esc(p.name)}.</h1><p>Tap and hold to reveal your secret.</p><div class="center-orb" data-hold="pass" id="holdReveal" tabindex="0" role="button" aria-label="Hold to reveal your secret"><span class="hold-label">Hold to<br>reveal</span></div>
-    <button class="btn black full" id="passNextBtn">${last ? 'Start discussion →' : 'Pass to next player →'}</button>${canBack ? '<button class="ghost pass-back" id="backPass">← Back to previous player</button>' : ''}</div></div>`;
+    <button class="btn black full" id="passNextBtn">${last ? 'Start discussion →' : 'Pass to next player →'}</button>${canBack ? '<button class="ghost pass-back" id="backPass">← Back to previous player</button>' : ''}<button class="ghost full" id="endGameBtn" style="margin-top:10px">End game</button></div></div>`;
   }
 
   function renderDiscussion(){
     const active = getActivePlayers();
     const elim = state.players.filter(p => p.eliminated);
-    return `<div class="screen"><div style="text-align:center"><div class="eyebrow">Round ${state.round} · Turn ${state.turn}</div><h1 class="mobile-title">Describe your word in one sentence.</h1><p>Go round the table. When you're ready, hit vote.</p></div><div class="discussion-list"><div class="section-title mono">Still in</div><div class="discussion-grid">${active.map(p => { const i = state.players.indexOf(p); return `<div class="discussion-player"><span class="player-name">${esc(p.name)}</span><button class="eye" data-peek="${i}" aria-label="Peek at your word">◉</button></div>`; }).join('')}</div>${elim.length ? `<div class="section-title mono" style="margin-top:18px">Eliminated</div><div class="discussion-grid">${elim.map(p => `<div class="discussion-player done"><span class="player-name">${esc(p.name)}</span><span class="player-role ${p.role === 'undercover' ? 'infiltrator' : ''}">${roleText(p.role)}</span></div>`).join('')}</div>` : ''}<div class="small muted" style="text-align:center;margin-top:10px">Tap ◉ next to your name to peek at your word.</div></div><div class="bottom-actions"><button class="btn black full" id="voteBtn">Move to vote →</button><button class="ghost full" id="endGameBtn">End game</button></div></div>`;
+    return `<div class="screen"><div style="text-align:center"><div class="eyebrow">Round ${state.round} · Turn ${state.turn}</div><h1 class="mobile-title">Describe your word in one sentence.</h1><p>Go round the table. When you're ready, hit vote.</p></div><div class="discussion-list"><div class="section-title mono">Still in</div><div class="discussion-grid">${active.map(p => { const i = state.players.indexOf(p); return `<div class="discussion-player"><span class="player-name">${esc(p.name)}</span><button class="eye" data-peek="${i}" aria-label="Peek at your word">◉</button></div>`; }).join('')}</div>${elim.length ? `<div class="section-title mono" style="margin-top:18px">Eliminated</div><div class="discussion-grid">${elim.map(p => `<div class="discussion-player done"><span class="player-name">${esc(p.name)}</span><span class="player-role role-${p.role}">${roleText(p.role)}</span></div>`).join('')}</div>` : ''}<div class="small muted" style="text-align:center;margin-top:10px">Tap ◉ next to your name to peek at your word.</div></div><div class="bottom-actions"><button class="btn black full" id="voteBtn">Move to vote →</button><button class="ghost full" id="endGameBtn">End game</button></div></div>`;
   }
 
   function renderVote(){
@@ -569,7 +581,7 @@
     const elim = state.eliminated.map(i => state.players[i]).filter(Boolean);
     const latest = elim[elim.length - 1];
     const heading = state.lastWinner ? `${esc(state.lastWinner)} ${state.lastWinner === 'Mr White' ? 'wins' : 'win'}.` : 'Game ended.';
-    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Round ${state.round} result</div><h1>${heading}</h1><p>${latest ? `${esc(latest.name)} was ${rolePhrase(latest.role)}.` : ''}</p><div class="card"><div class="mono" style="margin-bottom:8px">Round recap</div><div class="players-table">${state.players.map(p => `<div class="player-line"><span class="player-name">${esc(p.name)}</span><span class="player-role ${p.role === 'undercover' ? 'infiltrator' : p.role === 'white' ? 'white' : ''}">${roleText(p.role)}${p.eliminated ? ' · eliminated' : ''}</span></div>`).join('')}</div><div class="word-note">The word was <strong>${esc(state.words.civilian)}</strong>. Undercover word was <strong>${esc(state.words.undercover)}</strong>.</div></div><div class="bottom-actions">${state.lastWinner ? '<button class="btn black full" id="nextRoundBtn">Next round, same group →</button>' : ''}<button class="btn full" id="newGameBtn">New game</button></div></div></div>`;
+    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Round ${state.round} result</div><h1>${heading}</h1><p>${latest ? `${esc(latest.name)} was ${rolePhraseColored(latest.role)}.` : ''}</p><div class="card"><div class="mono" style="margin-bottom:8px">Round recap</div><div class="players-table">${state.players.map(p => `<div class="player-line"><span class="player-name">${esc(p.name)}</span><span class="player-role role-${p.role}">${roleText(p.role)}${p.eliminated ? ' · eliminated' : ''}</span></div>`).join('')}</div><div class="word-note">The word was <strong>${esc(state.words.civilian)}</strong>. Undercover word was <strong>${esc(state.words.undercover)}</strong>.</div></div><div class="bottom-actions">${state.lastWinner ? '<button class="btn black full" id="nextRoundBtn">Next round, same group →</button>' : ''}<button class="btn full" id="newGameBtn">New game</button></div></div></div>`;
   }
 
   function render(){
@@ -649,6 +661,10 @@
       case 'resetNamesBtn':
         state.playerNames = Array.from({length: state.playerCount}, (_, i) => `Player ${i+1}`);
         save(); render(); break;
+      case 'selectAllCategoriesBtn':
+        state.categories = [...CATEGORIES]; save(); render(); break;
+      case 'deselectAllCategoriesBtn':
+        state.categories = []; save(); render(); break;
       case 'startBtn':
         if(state.customMode && (!state.customCivilian.trim() || !state.customUndercover.trim())){
           openModal(`<h3>Missing words.</h3><p>Enter both a civilian word and an undercover word, or switch back to the word database.</p><button class="btn black full" id="contBtn">Continue →</button>`);
