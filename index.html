@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{if(localStorage.getItem('mrwhite_dark')==='1')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -21,7 +22,7 @@
     --radius:12px;
   }
   *{box-sizing:border-box}
-  html,body,button,.app,.screen,.card,.row,.stack,.pill,.player-line,.player-name,.player-role,.word-note,.pass-secret,.pass-count,.discussion-player,.vote-option,.modal,.modal-backdrop,.ghost,.btn,.mono,.eyebrow,h1,h2,h3,p,label,span,div{
+  html,body,button,.app,.screen,.card,.row,.stack,.pill,.player-line,.player-name,.player-role,.word-note,.pass-secret,.pass-count,.discussion-player,.modal,.modal-backdrop,.ghost,.btn,.mono,.eyebrow,h1,h2,h3,p,label,span,div{
     -webkit-user-select:none;
     user-select:none;
     -webkit-touch-callout:none;
@@ -40,7 +41,7 @@
   .btn:disabled{opacity:.5;cursor:default}
   .app{width:100%;max-width:760px;margin:0 auto;padding:24px 20px calc(32px + env(safe-area-inset-bottom))}
   .wide{max-width:900px}
-  .screen{min-height:calc(100vh - 56px);min-height:calc(100dvh - 56px);display:flex;flex-direction:column}
+  .screen{min-height:calc(100vh - 104px);min-height:calc(100dvh - 104px);display:flex;flex-direction:column}
   .center-screen{align-items:center;text-align:center;justify-content:center}
   .eyebrow{font:13px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.02em;color:#666;margin:0 0 14px}
   h1{font-size:clamp(32px,9vw,52px);line-height:1.03;letter-spacing:-.045em;margin:0 0 10px;font-weight:700}
@@ -57,6 +58,8 @@
   .muted{color:#8a8a8a}
   .mono{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#666}
   .small{font-size:14px}
+  .btn,.pill,.discussion-player,.top-pill,.count-control button,.role-box button{transition:transform .12s ease,background .15s,border-color .15s,opacity .15s,box-shadow .15s}
+  .btn:active,.pill:active,.discussion-player:active,.top-pill:active,.count-control button:active,.role-box button:active{transform:scale(.97)}
   .btn{border:1px solid var(--line);background:#fff;color:#161616;border-radius:999px;min-height:52px;padding:0 22px;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600}
   .btn.black{background:var(--black);border-color:var(--black);color:#fff}
   .btn.danger{background:var(--danger);border-color:var(--danger);color:#fff}
@@ -81,8 +84,11 @@
   .pill.on{background:#161616;border-color:#161616;color:#fff}
   .input{width:100%;height:44px;padding:0 13px;border:1px solid var(--line);border-radius:7px;outline:none;background:#fff;color:#111}
   .input:focus{border-color:#888;box-shadow:0 0 0 3px rgba(0,0,0,.05)}
-  .pair-row{display:flex;gap:8px;margin-top:10px}
+  .pair-row{display:flex;gap:8px;margin-top:12px}
   .pair-row > button{flex:1;min-width:0}
+  .word-preview{margin-top:6px;display:flex;flex-direction:column;gap:10px}
+  .word-pair{font-size:17px;color:#161616;line-height:1.4}
+  .word-pair strong{font-weight:700}
   .players-table{margin-top:8px}
   .player-line{height:49px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px}
   .player-line:last-child{border-bottom:0}
@@ -97,29 +103,29 @@
   .role-text.role-white{color:var(--purple)}
   .word-note{margin-top:18px;font-size:20px;color:#161616;line-height:1.5}
   .word-note strong{font-weight:700}
-  .center-orb{width:224px;height:224px;border-radius:50%;background:#161616;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:19px;line-height:1.25;font-weight:600;margin:24px auto}
+  .center-orb{width:224px;height:224px;border-radius:50%;background:#161616;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-size:19px;line-height:1.25;font-weight:600;margin:24px auto;transition:width .36s cubic-bezier(.4,0,.2,1),height .36s,border-radius .36s,padding .36s,background .36s}
   .center-orb.revealed{width:min(520px,calc(100vw - 40px));height:auto;min-height:224px;border-radius:18px;padding:28px}
+  .center-orb.revealed .pass-secret{animation:content-in .3s ease .06s both}
   .pass-secret{width:100%;text-align:center}
   .pass-secret h1{margin:8px 0 10px}
   .pass-secret p{margin:0;font-size:16px;line-height:1.5}
   .pass-back{margin-top:10px}
   .peek-secret{margin:12px 0 18px}
   .peek-secret h3{margin:6px 0 0}
+  .peek-secret:not(.hidden){animation:content-in .26s ease both}
   .peek-secret.hidden{display:none}
   .pass-count{margin-top:14px;width:100%;text-align:center}
   .reveal-wrap{max-width:560px;width:100%;margin:0 auto}
   .discussion-list{margin-top:30px}
   .discussion-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  .discussion-player{border:1px solid var(--line);background:#fafafa;border-radius:10px;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 12px}
+  .discussion-player{border:1px solid var(--line);background:#fafafa;border-radius:10px;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 14px}
+  button.discussion-player{width:100%;text-align:left;font:inherit;color:inherit}
   .discussion-player.done{opacity:.65}
   .discussion-player.done .player-name{text-decoration:line-through}
-  .eye{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:#fff;font-size:16px}
-  .vote-list{margin-top:28px;display:grid;gap:9px}
-  .vote-option{border:1px solid var(--line);box-shadow:0 2px 4px rgba(0,0,0,.04);border-radius:9px;background:#fff;min-height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:16px}
-  .vote-option span:last-child{font:13px ui-monospace,SFMono-Regular,Menlo,monospace;color:#666}
-  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.31);display:none;align-items:center;justify-content:center;padding:22px;z-index:20}
-  .modal-backdrop.show{display:flex}
-  .modal{width:min(100%,384px);background:#fff;border-radius:13px;padding:24px 20px 20px;box-shadow:0 20px 60px rgba(0,0,0,.16);text-align:center}
+  .chev{margin-left:auto;color:#c4c4c4;font-size:20px;font-weight:700}
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.31);display:none;align-items:center;justify-content:center;padding:22px;z-index:30}
+  .modal-backdrop.show{display:flex;animation:bd-in .2s ease both}
+  .modal{width:min(100%,384px);background:#fff;border-radius:13px;padding:24px 20px 20px;box-shadow:0 20px 60px rgba(0,0,0,.16);text-align:center;animation:modal-in .24s cubic-bezier(.2,.8,.2,1) both}
   .modal h3{font-size:23px;margin-bottom:18px}
   .modal p{font-size:14px;line-height:1.45;margin-bottom:18px}
   .modal .input{margin:-4px 0 10px}
@@ -131,18 +137,71 @@
   .notice{padding:11px 13px;border:1px solid var(--line);background:#fafafa;border-radius:9px;font-size:13px;color:#555;line-height:1.4}
   .hidden{display:none!important}
   .setup-header{margin-bottom:24px}
+  /* top bar */
+  .topbar{max-width:760px;margin:0 auto;padding:14px 20px 4px;display:flex;justify-content:flex-end;gap:8px;position:sticky;top:0;z-index:10;background:var(--bg)}
+  .topbar.wide{max-width:900px}
+  .top-pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-size:13px;line-height:1;display:flex;align-items:center;gap:6px}
+  .top-pill.on{background:#161616;border-color:#161616;color:#fff}
+  /* navigation animations */
+  .screen.anim-next{animation:slide-next .34s cubic-bezier(.2,.8,.2,1) both}
+  .screen.anim-back{animation:slide-back .34s cubic-bezier(.2,.8,.2,1) both}
+  .screen.anim-fade{animation:screen-in .3s ease both}
+  @keyframes slide-next{from{opacity:0;transform:translateX(50px)}to{opacity:1;transform:none}}
+  @keyframes slide-back{from{opacity:0;transform:translateX(-50px)}to{opacity:1;transform:none}}
+  @keyframes screen-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes bd-in{from{opacity:0}to{opacity:1}}
+  @keyframes modal-in{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+  @keyframes content-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  /* dark theme */
+  html[data-theme="dark"]{
+    --bg:#0e0e10;
+    --text:#f2f2f2;
+    --line:#2a2a2e;
+    --black:#f2f2f2;
+  }
+  html[data-theme="dark"] body{background:var(--bg);color:var(--text)}
+  html[data-theme="dark"] .topbar{background:var(--bg)}
+  html[data-theme="dark"] .card{background:#161618;border-color:var(--line)}
+  html[data-theme="dark"] .btn{background:#1d1d20;border-color:var(--line);color:var(--text)}
+  html[data-theme="dark"] .btn.black{background:#f2f2f2;color:#111;border-color:#f2f2f2}
+  html[data-theme="dark"] .input{background:#1a1a1d;color:var(--text);border-color:var(--line)}
+  html[data-theme="dark"] .pill{background:#1a1a1d;border-color:var(--line);color:var(--text)}
+  html[data-theme="dark"] .pill.on{background:#f2f2f2;color:#111;border-color:#f2f2f2}
+  html[data-theme="dark"] .top-pill{background:#1d1d20;border-color:var(--line);color:var(--text)}
+  html[data-theme="dark"] .top-pill.on{background:#f2f2f2;color:#111;border-color:#f2f2f2}
+  html[data-theme="dark"] .discussion-player{background:#1a1a1d;border-color:var(--line)}
+  html[data-theme="dark"] .count-control button,
+  html[data-theme="dark"] .role-box button{background:#1d1d20;border-color:var(--line);color:var(--text)}
+  html[data-theme="dark"] .count-value,
+  html[data-theme="dark"] .role-num{background:#1a1a1d;border-color:var(--line)}
+  html[data-theme="dark"] .center-orb{background:#f2f2f2;color:#111}
+  html[data-theme="dark"] .modal{background:#161618;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+  html[data-theme="dark"] .modal-backdrop{background:rgba(0,0,0,.6)}
+  html[data-theme="dark"] p{color:#a8a8a8}
+  html[data-theme="dark"] .muted{color:#7c7c7c}
+  html[data-theme="dark"] .mono{color:#9a9a9a}
+  html[data-theme="dark"] .eyebrow{color:#9a9a9a}
+  html[data-theme="dark"] .ghost{color:#cfcfcf}
+  html[data-theme="dark"] .notice{background:#1a1a1d;border-color:var(--line);color:#a8a8a8}
+  html[data-theme="dark"] .word-note{color:#f2f2f2}
+  html[data-theme="dark"] .word-pair{color:#f2f2f2}
+  html[data-theme="dark"] .chev{color:#4a4a4a}
   @media(max-width:640px){
     .app{padding:20px 20px calc(28px + env(safe-area-inset-bottom))}
-    .screen{min-height:calc(100vh - 48px);min-height:calc(100dvh - 48px)}
+    .screen{min-height:calc(100vh - 96px);min-height:calc(100dvh - 96px)}
     .card{padding:20px;margin-top:12px}
     .role-grid{grid-template-columns:1fr;gap:14px}
     h1{font-size:44px}
     h2{font-size:30px}
   }
   @media(min-width:700px){.mobile-title{font-size:54px}}
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  }
 </style>
 </head>
 <body>
+<div id="topbar" class="topbar"></div>
 <div id="app" class="app"></div>
 <div id="modalRoot"></div>
 <script>
@@ -219,16 +278,25 @@
   let state = loadState();
   const uiExpanded = { categories:false, playerNames:false };
   const app = document.getElementById('app');
+  const topbar = document.getElementById('topbar');
   const modalRoot = document.getElementById('modalRoot');
   let saveTimer = null;
   let peekIndex = null;
   let pendingElimination = null;
   let lastPair = null;
   let modalCancelFn = null;
+  // Runtime-only (NOT persisted): refreshing at setup always yields a fresh preview pair.
+  let previewPair = null;
+  let pendingAnim = null;
+
+  // UI prefs (persisted separately from game state)
+  let darkMode = (() => { try{ return localStorage.getItem('mrwhite_dark') === '1'; }catch(_){ return false; } })();
+  let keepScreenOn = (() => { try{ const v = localStorage.getItem('mrwhite_keepscreen'); return v === null ? true : v === '1'; }catch(_){ return true; } })();
 
   function clone(v){ return JSON.parse(JSON.stringify(v)); }
   function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
   function saveDebounced(){ clearTimeout(saveTimer); saveTimer = setTimeout(save, 300); }
+  function prefSet(key, val){ try{ localStorage.setItem(key, val); }catch(_){} }
 
   function loadState(){
     try{
@@ -238,8 +306,8 @@
       const merged = Object.assign(clone(DEFAULT_STATE), parsed, {
         roles: Object.assign(clone(DEFAULT_STATE.roles), parsed.roles || {})
       });
-      // migrate legacy keys from older versions
       delete merged.revealed; delete merged.discussionDone; delete merged.currentRevealIndex;
+      delete merged.previewPair; delete merged.previewShown;
       if(parsed.mysteryModeConfigured !== true){ merged.mysteryMode = true; merged.mysteryModeConfigured = true; }
       if(!isValidGameState(merged)){
         merged.screen = 'setup';
@@ -251,7 +319,7 @@
 
   function isValidGameState(s){
     if(s.screen === 'setup') return true;
-    if(!['pass','discussion','vote','result'].includes(s.screen)) return false;
+    if(!['pass','discussion','result'].includes(s.screen)) return false;
     if(!Array.isArray(s.players) || !s.players.length) return false;
     if(!Number.isInteger(s.currentPassIndex) || s.currentPassIndex < 0 || s.currentPassIndex >= s.players.length) return false;
     if(!s.words || typeof s.words.civilian !== 'string' || typeof s.words.undercover !== 'string') return false;
@@ -262,6 +330,7 @@
 
   function esc(str){ return String(str ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c])); }
   function vibrate(ms){ try{ navigator.vibrate && navigator.vibrate(ms); }catch(_){} }
+  function pairKey(a, b){ return [a, b].sort().join('||'); }
 
   /* ---------- pure game logic (unit-testable) ---------- */
 
@@ -331,18 +400,56 @@
     return player.role === 'undercover' ? state.words.undercover : state.words.civilian;
   }
 
+  function wordPool(){
+    let pool = [];
+    state.categories.filter(c => WORDS[c]).forEach(c => pool.push(...WORDS[c]));
+    if(!pool.length) pool = [['Salsa','Guacamole']];
+    return pool;
+  }
+
+  /* ---------- preview pair (runtime-only, never persisted) ---------- */
+
+  function previewPairStillValid(){
+    if(!previewPair) return false;
+    const pool = wordPool();
+    return pool.some(p =>
+      (p[0] === previewPair.civilian && p[1] === previewPair.undercover) ||
+      (p[0] === previewPair.undercover && p[1] === previewPair.civilian)
+    );
+  }
+  function pickPreviewPair(){
+    const pool = wordPool();
+    const avoid = new Set();
+    if(lastPair) avoid.add(pairKey(lastPair[0], lastPair[1]));
+    if(previewPair) avoid.add(pairKey(previewPair.civilian, previewPair.undercover));
+    let pair;
+    for(let tries = 0; tries < 8; tries++){
+      pair = pool[Math.floor(Math.random() * pool.length)];
+      if(!avoid.has(pairKey(pair[0], pair[1]))) break;
+    }
+    return Math.random() < .5
+      ? { civilian: pair[1], undercover: pair[0] }
+      : { civilian: pair[0], undercover: pair[1] };
+  }
+  function ensurePreviewPair(){
+    if(state.customMode) return;
+    if(!previewPair || !previewPairStillValid()) previewPair = pickPreviewPair();
+  }
+  function refreshPreviewIfInvalid(){
+    if(state.customMode) return;
+    if(!previewPairStillValid()) previewPair = pickPreviewPair();
+  }
+
   /* ---------- round flow ---------- */
 
   function chooseWords(){
     if(state.customMode && state.customCivilian.trim() && state.customUndercover.trim()){
       return { civilian: state.customCivilian.trim(), undercover: state.customUndercover.trim() };
     }
-    let pool = [];
-    state.categories.filter(c => WORDS[c]).forEach(c => pool.push(...WORDS[c]));
-    if(!pool.length) pool = [['Salsa','Guacamole']];
+    const pool = wordPool();
     let pair = pool[Math.floor(Math.random() * pool.length)];
     if(pool.length > 1 && samePair(pair, lastPair)){
-      pair = pool[Math.floor(Math.random() * pool.length)]; // one re-roll to avoid repeats
+      pair = pool[Math.floor(Math.random() * pool.length)];
     }
     lastPair = pair;
     return Math.random() < .5
@@ -362,8 +469,8 @@
     return roles;
   }
 
-  function go(screen){
-    state.screen = screen; save(); render();
+  function go(screen, anim = 'fade'){
+    state.screen = screen; save(); pendingAnim = anim; render();
     window.scrollTo({ top:0, behavior:'auto' });
   }
 
@@ -373,10 +480,17 @@
     state.players = state.playerNames.map((name, i) => ({
       name: name.trim() || `Player ${i+1}`, role: roles[i], eliminated: false
     }));
-    state.words = chooseWords();
+    if(state.customMode){
+      state.words = { civilian: state.customCivilian.trim(), undercover: state.customUndercover.trim() };
+    }else if(previewPair){
+      state.words = { civilian: previewPair.civilian, undercover: previewPair.undercover };
+      lastPair = [previewPair.civilian, previewPair.undercover];
+    }else{
+      state.words = chooseWords();
+    }
     state.currentPassIndex = 0; state.eliminated = [];
     state.lastWinner = null; state.turn = 1;
-    go('pass');
+    go('pass', 'fade');
   }
 
   function nextRound(){
@@ -385,24 +499,24 @@
     state.players = state.players.map((p, i) => ({ name: p.name, role: roles[i], eliminated: false }));
     state.words = chooseWords();
     state.currentPassIndex = 0; state.eliminated = []; state.lastWinner = null;
-    go('pass');
+    go('pass', 'fade');
   }
 
   function nextPass(){
     if(state.currentPassIndex >= state.players.length - 1){
-      state.currentPassIndex = 0; go('discussion'); return;
+      state.currentPassIndex = 0; go('discussion', 'next'); return;
     }
-    state.currentPassIndex++; go('pass');
+    state.currentPassIndex++; go('pass', 'next');
   }
 
   function endGame(winner){
     state.lastWinner = winner;
-    go('result');
+    go('result', 'fade');
   }
 
   function advanceTurn(votedOut){
     state.turn += 1;
-    go('discussion');
+    go('discussion', 'fade');
     if(votedOut) showVotedOutModal(votedOut);
   }
 
@@ -453,15 +567,16 @@
       { onCancel: () => resolveWhiteGuess(false) });
   }
 
-  function showRevealModal(index){
-    peekIndex = index;
-    const player = state.players[index];
-    openModal(`<div class="eyebrow">Heads up</div>
-      <h3>Make sure no one is looking.</h3>
-      <p>${esc(player.name)}, hold to peek.</p>
+  // Combined player action sheet (replaces the old peek + vote confirm)
+  function openPlayerActionSheet(i){
+    const p = state.players[i];
+    if(!p || p.eliminated) return;
+    pendingElimination = i; peekIndex = i;
+    openModal(`<h3>${esc(p.name)}</h3>
       <div id="peekSecret" class="peek-secret hidden" aria-live="polite"></div>
-      <button class="btn black full" data-hold="peek" id="holdPeek">Hold to reveal</button>
-      <button class="ghost full" id="cancelModal">Back</button>`);
+      <button class="btn black full" data-hold="peek" id="holdPeek">Hold to show word</button>
+      <button class="btn danger full" id="doEliminate">Eliminate</button>
+      <button class="ghost full" id="cancelModal">Cancel</button>`);
   }
 
   function peekSecretMarkup(){
@@ -480,6 +595,20 @@
     const eyebrow = isWhite ? 'You are' : 'Your word is';
     const title = isWhite ? 'Mr White' : (mystery ? esc(roleWord(p)) : `${roleText(p.role)} · ${esc(roleWord(p))}`);
     return `<div class="pass-secret"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>Release to hide and pass.</p></div>`;
+  }
+
+  /* ---------- words preview modal ---------- */
+
+  function wordPreviewMarkup(){
+    return `<div class="word-pair"><span class="role-text role-civilian">Civilian</span> <strong>${esc(previewPair.civilian)}</strong></div>
+      <div class="word-pair"><span class="role-text role-undercover">Undercover</span> <strong>${esc(previewPair.undercover)}</strong></div>`;
+  }
+  function showWordsModal(){
+    ensurePreviewPair();
+    openModal(`<h3>Words this round</h3>
+      <div id="wordsModalPreview" class="word-preview">${wordPreviewMarkup()}</div>
+      <button class="btn black full" id="changeWordsBtn">Change</button>
+      <button class="ghost full" id="cancelModal">Done</button>`);
   }
 
   /* ---------- hold-to-reveal (delegated, pointer + keyboard) ---------- */
@@ -519,6 +648,22 @@
     }
   }
 
+  /* ---------- top bar ---------- */
+
+  function renderTopbar(){
+    topbar.innerHTML =
+      `<button class="top-pill ${darkMode ? 'on' : ''}" id="darkToggle" aria-pressed="${darkMode}">🌙 Dark</button>
+       <button class="top-pill ${keepScreenOn ? 'on' : ''}" id="keepOnToggle" aria-pressed="${keepScreenOn}">☀ Awake</button>`;
+  }
+  function syncTopbarWidth(){
+    topbar.className = 'topbar ' + (state.screen === 'setup' ? 'wide' : '');
+  }
+  function applyTheme(){
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light');
+    const m = document.querySelector('meta[name="theme-color"]');
+    if(m) m.setAttribute('content', darkMode ? '#0e0e10' : '#ffffff');
+  }
+
   /* ---------- rendering ---------- */
 
   function categoryButton(c){
@@ -528,6 +673,7 @@
 
   function renderSetup(){
     normalizeCounts(); syncNames();
+    if(!state.customMode) ensurePreviewPair();
     const selected = state.categories.length;
     const seen = new Set(); let dup = false;
     state.playerNames.slice(0, state.playerCount).forEach(n => {
@@ -546,8 +692,9 @@
         </div>
         <div class="summary mono">${state.roles.undercover} Undercover · ${state.roles.white} Mr White · ${state.roles.civilian} Civilian</div>
       </div>
+      ${!state.customMode ? `<div class="card"><div class="section-title">Words</div><div class="small muted">Preview the pair for this round. Use Change to re-roll.</div><button class="btn full" id="showWordsBtn">Show words</button></div>` : ''}
       <div class="card"><div class="section-title">Word source</div><div class="stack" style="margin-top:14px">
-        <button class="btn ${!state.customMode ? 'black' : ''} full" id="databaseBtn">From Category</button>
+        <button class="btn ${!state.customMode ? 'black' : ''} full" id="databaseBtn">Random</button>
         <button class="btn ${state.customMode ? 'black' : ''} full" id="customBtn">Custom</button>
         ${state.customMode ? `<div class="stack"><div><label class="field-label" for="customCivilian">Civilian word</label><input class="input" id="customCivilian" value="${esc(state.customCivilian)}" placeholder="Example: Ketchup" autocomplete="off" spellcheck="false"></div><div><label class="field-label" for="customUndercover">Undercover word</label><input class="input" id="customUndercover" value="${esc(state.customUndercover)}" placeholder="Example: Mustard" autocomplete="off" spellcheck="false"></div></div>` : ''}
       </div></div>
@@ -562,19 +709,13 @@
     const p = currentPlayer();
     const canBack = state.currentPassIndex > 0;
     const last = state.currentPassIndex >= state.players.length - 1;
-    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Pass the phone</div><h1>Pass to ${esc(p.name)}.</h1><p>Tap and hold to reveal your secret.</p><div class="center-orb" data-hold="pass" id="holdReveal" tabindex="0" role="button" aria-label="Hold to reveal your secret"><span class="hold-label">Hold to<br>reveal</span></div>
-    <button class="btn black full" id="passNextBtn">${last ? 'Start discussion →' : 'Pass to next player →'}</button>${canBack ? '<button class="ghost pass-back" id="backPass">← Back to previous player</button>' : ''}<button class="ghost full" id="endGameBtn" style="margin-top:10px">End game</button></div></div>`;
+    return `<div class="screen center-screen"><div class="reveal-wrap"><div class="eyebrow">Pass the phone</div><h1>Pass to ${esc(p.name)}.</h1><p>Tap and hold to reveal your secret.</p><div class="center-orb" data-hold="pass" id="holdReveal" tabindex="0" role="button" aria-label="Hold to reveal your secret"><span class="hold-label">Hold to<br>reveal</span></div><button class="btn black full" id="passNextBtn">${last ? 'Start discussion →' : 'Pass to next player →'}</button>${canBack ? '<button class="ghost pass-back" id="backPass">← Back to previous player</button>' : ''}<button class="ghost full" id="endGameBtn" style="margin-top:10px">End game</button></div></div>`;
   }
 
   function renderDiscussion(){
     const active = getActivePlayers();
     const elim = state.players.filter(p => p.eliminated);
-    return `<div class="screen"><div style="text-align:center"><div class="eyebrow">Round ${state.round} · Turn ${state.turn}</div><h1 class="mobile-title">Describe your word in one sentence.</h1><p>Go round the table. When you're ready, hit vote.</p></div><div class="discussion-list"><div class="section-title mono">Still in</div><div class="discussion-grid">${active.map(p => { const i = state.players.indexOf(p); return `<div class="discussion-player"><span class="player-name">${esc(p.name)}</span><button class="eye" data-peek="${i}" aria-label="Peek at your word">◉</button></div>`; }).join('')}</div>${elim.length ? `<div class="section-title mono" style="margin-top:18px">Eliminated</div><div class="discussion-grid">${elim.map(p => `<div class="discussion-player done"><span class="player-name">${esc(p.name)}</span><span class="player-role role-${p.role}">${roleText(p.role)}</span></div>`).join('')}</div>` : ''}<div class="small muted" style="text-align:center;margin-top:10px">Tap ◉ next to your name to peek at your word.</div></div><div class="bottom-actions"><button class="btn black full" id="voteBtn">Move to vote →</button><button class="ghost full" id="endGameBtn">End game</button></div></div>`;
-  }
-
-  function renderVote(){
-    const active = getActivePlayers();
-    return `<div class="screen"><div><div class="eyebrow">Round ${state.round} · Turn ${state.turn} · Vote</div><h2>Who's the infiltrator?</h2><p>Pick the player the table agrees to eliminate.</p></div><div class="vote-list">${active.map(p => { const i = state.players.indexOf(p); return `<button class="vote-option" data-vote="${i}"><span>${esc(p.name)}</span><span>Eliminate →</span></button>`; }).join('')}</div><div class="bottom-actions"><button class="ghost full" id="backDiscussion">← Back to discussion</button></div></div>`;
+    return `<div class="screen"><div style="text-align:center"><div class="eyebrow">Round ${state.round} · Turn ${state.turn}</div><h1 class="mobile-title">Describe your word in one sentence.</h1><p>Go round the table, then tap a player to eliminate or peek.</p></div><div class="discussion-list"><div class="section-title mono">Still in</div><div class="discussion-grid">${active.map(p => { const i = state.players.indexOf(p); return `<button class="discussion-player" data-vote="${i}" aria-label="Options for ${esc(p.name)}"><span class="player-name">${esc(p.name)}</span><span class="chev">›</span></button>`; }).join('')}</div>${elim.length ? `<div class="section-title mono" style="margin-top:18px">Eliminated</div><div class="discussion-grid">${elim.map(p => `<div class="discussion-player done"><span class="player-name">${esc(p.name)}</span><span class="player-role role-${p.role}">${roleText(p.role)}</span></div>`).join('')}</div>` : ''}</div><div class="bottom-actions"><button class="ghost full" id="endGameBtn">End game</button></div></div>`;
   }
 
   function renderResult(){
@@ -585,16 +726,23 @@
   }
 
   function render(){
-    // defense in depth: never render a game screen without players
     if(state.screen !== 'setup' && !(Array.isArray(state.players) && state.players.length)){
       state.screen = 'setup';
     }
     app.className = 'app ' + (state.screen === 'setup' ? 'wide' : '');
-    if(state.screen === 'setup') app.innerHTML = renderSetup();
-    else if(state.screen === 'pass') app.innerHTML = renderPass();
-    else if(state.screen === 'discussion') app.innerHTML = renderDiscussion();
-    else if(state.screen === 'vote') app.innerHTML = renderVote();
-    else if(state.screen === 'result') app.innerHTML = renderResult();
+    let html = '';
+    if(state.screen === 'setup') html = renderSetup();
+    else if(state.screen === 'pass') html = renderPass();
+    else if(state.screen === 'discussion') html = renderDiscussion();
+    else if(state.screen === 'result') html = renderResult();
+    else html = renderSetup();
+    app.innerHTML = html;
+    if(pendingAnim){
+      const s = app.querySelector('.screen');
+      if(s) s.classList.add('anim-' + pendingAnim);
+      pendingAnim = null;
+    }
+    syncTopbarWidth();
   }
 
   /* ---------- events (fully delegated) ---------- */
@@ -612,7 +760,7 @@
       state.categories = state.categories.includes(c)
         ? state.categories.filter(x => x !== c)
         : [...state.categories, c];
-      save(); render(); return;
+      refreshPreviewIfInvalid(); save(); render(); return;
     }
     if((el = q('[data-role]'))){
       const r = el.dataset.role, d = Number(el.dataset.delta);
@@ -625,19 +773,26 @@
       }
       normalizeCounts(); save(); render(); return;
     }
-    if((el = q('[data-peek]'))){ showRevealModal(Number(el.dataset.peek)); return; }
     if((el = q('[data-vote]'))){
-      const i = Number(el.dataset.vote);
-      const p = state.players[i];
-      if(!p || p.eliminated) return;
-      pendingElimination = i;
-      openModal(`<h3>Eliminate ${esc(p.name)}?</h3><p>Their role will be revealed to the whole table.</p><button class="btn danger full" id="doEliminate">Eliminate</button><button class="ghost full" id="cancelModal">Cancel</button>`);
+      openPlayerActionSheet(Number(el.dataset.vote));
       return;
     }
 
     const button = q('button');
     const id = button ? button.id : '';
     switch(id){
+      case 'darkToggle':
+        darkMode = !darkMode;
+        prefSet('mrwhite_dark', darkMode ? '1' : '0');
+        applyTheme();
+        renderTopbar();
+        break;
+      case 'keepOnToggle':
+        keepScreenOn = !keepScreenOn;
+        prefSet('mrwhite_keepscreen', keepScreenOn ? '1' : '0');
+        applyWakeLock();
+        renderTopbar();
+        break;
       case 'playerMinus':
         if(state.playerCount > 3){
           state.playerCount--;
@@ -653,8 +808,15 @@
           syncNames(); save(); render();
         }
         break;
-      case 'databaseBtn': state.customMode = false; save(); render(); break;
+      case 'databaseBtn': state.customMode = false; ensurePreviewPair(); save(); render(); break;
       case 'customBtn': state.customMode = true; save(); render(); break;
+      case 'showWordsBtn': showWordsModal(); break;
+      case 'changeWordsBtn': {
+        previewPair = pickPreviewPair(); vibrate(12);
+        const wmp = document.getElementById('wordsModalPreview');
+        if(wmp) wmp.innerHTML = wordPreviewMarkup(); else showWordsModal();
+        break;
+      }
       case 'mysteryBtn':
         state.mysteryMode = !state.mysteryMode; state.mysteryModeConfigured = true;
         save(); render(); break;
@@ -662,9 +824,9 @@
         state.playerNames = Array.from({length: state.playerCount}, (_, i) => `Player ${i+1}`);
         save(); render(); break;
       case 'selectAllCategoriesBtn':
-        state.categories = [...CATEGORIES]; save(); render(); break;
+        state.categories = [...CATEGORIES]; refreshPreviewIfInvalid(); save(); render(); break;
       case 'deselectAllCategoriesBtn':
-        state.categories = []; save(); render(); break;
+        state.categories = []; refreshPreviewIfInvalid(); save(); render(); break;
       case 'startBtn':
         if(state.customMode && (!state.customCivilian.trim() || !state.customUndercover.trim())){
           openModal(`<h3>Missing words.</h3><p>Enter both a civilian word and an undercover word, or switch back to the word database.</p><button class="btn black full" id="contBtn">Continue →</button>`);
@@ -674,12 +836,10 @@
       case 'passNextBtn': nextPass(); break;
       case 'backPass':
         state.currentPassIndex = Math.max(0, state.currentPassIndex - 1);
-        go('pass'); break;
-      case 'voteBtn': go('vote'); break;
+        go('pass', 'back'); break;
       case 'endGameBtn':
         openModal(`<h3>End game?</h3><p>The round will stop and you'll see who everyone was.</p><button class="btn danger full" id="confirmEnd">End game</button><button class="ghost full" id="cancelEnd">Cancel</button>`);
         break;
-      case 'backDiscussion': go('discussion'); break;
       case 'nextRoundBtn': nextRound(); break;
       case 'newGameBtn':
         openModal(`<h3>Start a new game?</h3><p>Current round progress will be cleared. Your players, roles and categories stay as they are.</p><button class="btn danger full" id="confirmNewGame">New game</button><button class="ghost full" id="cancelNewGame">Cancel</button>`);
@@ -692,8 +852,11 @@
         closeModal(); if(i != null) eliminate(i);
         break;
       }
-      case 'confirmEnd': state.lastWinner = null; closeModal(); go('result'); break;
-      case 'confirmNewGame': resetRoundData(); state.round = 1; closeModal(); go('setup'); break;
+      case 'confirmEnd': state.lastWinner = null; closeModal(); go('result', 'fade'); break;
+      case 'confirmNewGame':
+        previewPair = null;
+        resetRoundData(); state.round = 1; closeModal(); go('setup', 'fade');
+        break;
       case 'whiteGuessBtn': {
         const input = document.getElementById('whiteGuessInput');
         const guess = ((input && input.value) || '').trim().toLowerCase();
@@ -759,7 +922,7 @@
     if(e.target.closest('[data-hold]')) e.preventDefault();
   });
 
-  /* ---------- wake lock ---------- */
+  /* ---------- wake lock (controlled by Awake toggle) ---------- */
 
   let wakeLock = null;
   async function requestWakeLock(){
@@ -770,9 +933,18 @@
       }
     }catch(_){}
   }
+  function releaseWakeLock(){
+    try{ if(wakeLock) wakeLock.release(); }catch(_){}
+    wakeLock = null;
+  }
+  function applyWakeLock(){
+    if(keepScreenOn) requestWakeLock(); else releaseWakeLock();
+  }
   document.addEventListener('visibilitychange', () => {
-    if(document.visibilityState === 'visible') requestWakeLock();
+    if(document.visibilityState === 'visible' && keepScreenOn) requestWakeLock();
   });
+  // Some browsers need a user gesture to grant the lock the first time
+  document.addEventListener('pointerdown', () => { if(keepScreenOn) requestWakeLock(); }, { once:true });
 
   /* ---------- PWA manifest (inline data URI, stays single-file) ---------- */
 
@@ -816,8 +988,11 @@
 
   /* ---------- init ---------- */
 
+  applyTheme();
+  renderTopbar();
+  pendingAnim = 'fade';
   render();
-  requestWakeLock();
+  applyWakeLock();
   installManifest();
   if(new URLSearchParams(location.search).has('test')) runSelfTests();
 })();
