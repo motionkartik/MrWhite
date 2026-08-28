@@ -234,7 +234,44 @@
 
   const CATEGORIES=['Food','Drinks','Places','Objects','Sports','Animals','Movies & TV','Tech','Nature','People','Football','Anime','Horror','Music','Christmas','Video Games','Superheroes & Villains','Sci-Fi & Fantasy','Fitness & Gym','Travel','Vehicles','Instruments','Dinosaurs','Phobias','History','Office','Programming','Fashion','Space','Deep Sea','Landmarks','Furniture & Decor','Tools & Hardware','Holidays & Celebrations','Hobbies & Crafts','Bollywood'];
   
-  const WORDS={Food:[['Pizza','Burger'],['Pizza','Lasagna'],['Burger','Sandwich'],['Fries','Nuggets'],['Pancake','Waffle'],['Biryani','Pulao'],['Dosa','Idli'],['Samosa','Kachori'],['Pav Bhaji','Vada Pav'],['Noodles','Pasta'],['Popcorn','Nachos'],['Taco','Burrito'],['Sushi','Ramen'],['Cake','Pastry'],['Cake','Pie'],['Ice Cream','Kulfi'],['Ketchup','Chutney'],['Paneer','Tofu'],['Paratha','Naan'],['Chole','Rajma']],Drinks:[['Coffee','Tea'],['Tea','Green Tea'],['Cola','Soda'],['Lemonade','Iced Tea'],['Milkshake','Smoothie'],['Juice','Shake'],['Mango Juice','Orange Juice'],['Coconut Water','Lemon Water'],['Hot Chocolate','Coffee'],['Beer','Cider'],['Wine','Champagne'],['Water','Soda'],['Matcha','Green Tea'],['Lassi','Buttermilk'],['Cold Coffee','Iced Coffee'],['Mocktail','Juice']],Places:[['Beach','Island'],['Airport','Railway Station'],['Museum','Gallery'],['Hospital','Clinic'],['School','College'],['Temple','Mosque'],['Cinema','Theatre'],['Market','Mall'],['Park','Playground'],['Zoo','Aquarium'],['Library','Bookstore'],['Stadium','Arena'],['Hotel','Resort'],['Restaurant','Cafe'],['Office','Shop'],['Village','Town']],Objects:[['Umbrella','Raincoat'],['Backpack','Suitcase'],['Mirror','Window'],['Clock','Watch'],['Pillow','Cushion'],['Knife','Sword'],['Bottle','Thermos'],['Key','Lock'],['Lamp','Torch'],['Wallet','Purse'],['Scissors','Blade'],['Candle','Matchbox'],['Pen','Pencil'],['Book','Notebook'],['Chair','Stool'],['Bucket','Basket']],Sports:[['Cricket','Baseball'],['Football','Rugby'],['Tennis','Badminton'],['Boxing','Wrestling'],['Golf','Mini Golf'],['Swimming','Diving'],['Basketball','Netball'],['Hockey','Lacrosse'],['Volleyball','Beach Volleyball'],['Cycling','Running'],['Skating','Surfing'],['Archery','Shooting'],['Cricket','Tennis'],['Football','Basketball'],['Kabaddi','Wrestling'],['Table Tennis','Badminton']],Animals:[['Lion','Tiger'],['Cat','Leopard'],['Dog','Wolf'],['Horse','Donkey'],['Elephant','Rhino'],['Monkey','Gorilla'],['Penguin','Puffin'],['Shark','Dolphin'],['Eagle','Hawk'],['Bear','Panda'],['Zebra','Giraffe'],['Fox','Jackal'],['Crocodile','Alligator'],['Deer','Goat'],['Rabbit','Hare'],['Camel','Llama']],['Movies & TV']:[['Detective','Police Officer'],['Superhero','Villain'],['Actor','Stuntman'],['Director','Producer'],['Zombie','Vampire'],['Spaceship','Submarine'],['Comedy','Parody'],['Sequel','Remake'],['Sitcom','Drama'],['Thriller','Horror'],['Cartoon','Anime'],['Hero','Sidekick'],['Villain','Monster'],['Detective','Spy'],['Robot','Alien'],['King','Prince'],['School','College'],['Cop','Detective']],Tech:[['Laptop','Desktop'],['Keyboard','Typewriter'],['Mouse','Trackpad'],['Camera','Camcorder'],['Phone','Tablet'],['Browser','Search Engine'],['Robot','Drone'],['WiFi','Bluetooth'],['Monitor','TV'],['Printer','Scanner'],['Hard Drive','SSD'],['Router','Modem'],['Charger','Power Bank'],['Headphones','Earphones'],['Smartwatch','Fitness Band'],['App','Website'],['Password','PIN'],['Speaker','Headphones']],Nature:[['Mountain','Hill'],['River','Lake'],['Forest','Jungle'],['Rain','Drizzle'],['Cloud','Fog'],['Thunder','Lightning'],['Sunrise','Sunset'],['Volcano','Earthquake'],['Tornado','Storm'],['Desert','Oasis'],['Glacier','Iceberg'],['Valley','Canyon'],['Waterfall','River'],['Beach','Desert'],['Rainbow','Sunset'],['Tree','Plant']],People:[['Doctor','Nurse'],['Teacher','Professor'],['Pilot','Driver'],['Chef','Baker'],['Artist','Designer'],['Singer','Actor'],['Police','Detective'],['Farmer','Gardener'],['Lawyer','Judge'],['Engineer','Mechanic'],['Astronaut','Scientist'],['Plumber','Electrician'],['Photographer','Filmmaker'],['Dancer','Singer'],['Manager','Boss'],['Student','Teacher']],Football:[['Goalkeeper','Defender'],['Defender','Fullback'],['Penalty','Free Kick'],['Stadium','Pitch'],['Corner','Throw In'],['Coach','Referee'],['Striker','Winger'],['Midfielder','Defender'],['Yellow Card','Red Card'],['Header','Volley'],['Offside','Handball'],['Goal','Penalty'],['Substitute','Starter'],['Captain','Coach'],['Dribble','Pass'],['Boots','Shin Guards']],Anime:[['Ninja','Samurai'],['Dragon','Demon'],['Hero','Villain'],['Sword','Katana'],['Manga','Comic'],['Shonen','Shojo'],['Sensei','Student'],['Mecha','Robot'],['Isekai','Time Travel'],['Power','Magic'],['School','Academy'],['Monster','Demon'],['King','Prince'],['Master','Student'],['Spirit','Ghost'],['Hero','Protagonist']],Horror:[['Ghost','Spirit'],['Haunted House','Old House'],['Vampire','Werewolf'],['Witch','Wizard'],['Cemetery','Graveyard'],['Mummy','Zombie'],['Axe','Chainsaw'],['Ouija Board','Tarot Cards'],['Clown','Scarecrow'],['Demon','Ghost'],['Monster','Creature'],['Darkness','Night'],['Blood','Knife'],['Coffin','Grave'],['Mask','Clown'],['Haunted Hotel','Haunted House']],Music:[['Guitar','Bass'],['Piano','Keyboard'],['Singer','Rapper'],['Concert','Festival'],['Drums','Percussion'],['Violin','Viola'],['Saxophone','Trumpet'],['Vinyl','Cassette'],['Acoustic','Electric'],['DJ','Singer'],['Song','Music'],['Band','Singer'],['Mic','Speaker'],['Piano','Organ'],['Tabla','Drums'],['Guitar','Ukulele']],Christmas:[['Santa','Elf'],['Christmas Tree','Pine Tree'],['Gift','Present'],['Snowman','Snowflake'],['Carols','Songs'],['Reindeer','Sleigh'],['Stocking','Wreath'],['Mistletoe','Holly'],['Gingerbread','Cake'],['Santa','Snowman'],['Christmas Tree','Decorations'],['Gift','Box'],['Bell','Star'],['Candy Cane','Chocolate'],['Snow','Winter']],['Video Games']:[['Controller','Joystick'],['Boss','Enemy'],['Level','Stage'],['Quest','Mission'],['Console','Arcade'],['NPC','Character'],['RPG','Action Game'],['Health','Mana'],['Cutscene','Movie'],['Gun','Weapon'],['Player','Enemy'],['Game Over','Restart'],['Map','Level'],['Sword','Gun'],['Car','Bike'],['Coins','Points']],['Superheroes & Villains']:[['Batman','Robin'],['Superman','Homelander'],['Joker','Riddler'],['Hero','Villain'],['Hero','Antihero'],['Cape','Mask'],['Thor','Loki'],['Iron Man','War Machine'],['Spider-Man','Deadpool'],['Hulk','Thor'],['Batman','Superman'],['Flash','Quicksilver'],['Captain America','Winter Soldier'],['Wonder Woman','Supergirl'],['Thanos','Darkseid'],['Venom','Carnage']],['Sci-Fi & Fantasy']:[['Alien','Robot'],['Wizard','Magician'],['Magic','Technology'],['Spaceship','Starship'],['Dragon','Phoenix'],['Cyborg','Robot'],['Time Machine','Teleporter'],['Elf','Dwarf'],['Wand','Staff'],['Monster','Alien'],['King','Wizard'],['Castle','Space Station'],['Dragon','Monster'],['Robot','Android'],['Ghost','Spirit'],['Portal','Door']],['Fitness & Gym']:[['Treadmill','Running'],['Dumbbell','Kettlebell'],['Yoga','Pilates'],['Squat','Lunge'],['Trainer','Coach'],['Bench Press','Push Up'],['Deadlift','Squat'],['Pull Up','Chin Up'],['Resistance Band','Skipping Rope'],['Protein Shake','Energy Drink'],['Running','Walking'],['Cycling','Running'],['Push Up','Sit Up'],['Gym','Fitness Class'],['Weights','Dumbbells']],Travel:[['Passport','Visa'],['Hotel','Hostel'],['Tourist','Traveller'],['Flight','Journey'],['Map','Compass'],['Suitcase','Backpack'],['Cruise','Road Trip'],['Guide','Local'],['Beach','Mountain'],['Train','Flight'],['Hotel','Resort'],['Airport','Railway Station'],['Camera','Passport'],['Ticket','Boarding Pass'],['Trip','Vacation'],['Taxi','Cab']],Vehicles:[['Car','Taxi'],['Bus','Coach'],['Train','Metro'],['Bike','Motorcycle'],['Ship','Boat'],['Helicopter','Plane'],['Scooter','Skateboard'],['Truck','Van'],['Tractor','Jeep'],['Car','SUV'],['Bike','Scooter'],['Auto','Taxi'],['Bus','Van'],['Train','Bullet Train'],['Boat','Yacht'],['Plane','Helicopter']],Instruments:[['Violin','Cello'],['Flute','Clarinet'],['Trumpet','Trombone'],['Drums','Tabla'],['Sitar','Guitar'],['Piano','Organ'],['Harp','Banjo'],['Accordion','Harmonica'],['Xylophone','Marimba'],['Guitar','Ukulele'],['Piano','Keyboard'],['Drums','Dhol'],['Flute','Recorder'],['Tabla','Dholak'],['Saxophone','Flute']],Dinosaurs:[['T-Rex','Allosaurus'],['Triceratops','Stegosaurus'],['Raptor','Velociraptor'],['Dinosaur','Dragon'],['Brachiosaurus','Brontosaurus'],['Pterodactyl','Flying Dinosaur'],['Spinosaurus','T-Rex'],['Dinosaur','Fossil'],['Raptor','T-Rex'],['Triceratops','Rhino'],['Stegosaurus','Triceratops'],['Dinosaur Egg','Chicken Egg'],['Fossil','Bone'],['Volcano','Dinosaur'],['Jurassic','Dinosaur']],Phobias:[['Heights','Flying'],['Darkness','Silence'],['Spiders','Snakes'],['Crowds','Closed Spaces'],['Water','Fire'],['Ghosts','Death'],['Needles','Blood'],['Clowns','Masks'],['Dogs','Insects'],['Thunder','Lightning'],['Public Speaking','Crowds'],['Heights','Ladders'],['Dark Room','Alone'],['Snake','Spider'],['Hospital','Needles']],History:[['King','Emperor'],['Castle','Fort'],['Revolution','War'],['Ancient Rome','Ancient Greece'],['Knight','Samurai'],['Pharaoh','Mummy'],['Gladiator','Soldier'],['Pirate','Viking'],['Caveman','Hunter'],['King','Queen'],['Sword','Shield'],['Castle','Palace'],['Battle','War'],['Army','Soldiers'],['Maharaja','King'],['Freedom Fighter','Soldier']],Office:[['Meeting','Conference'],['Printer','Scanner'],['Manager','Director'],['Desk','Cubicle'],['Stapler','Paperclip'],['Whiteboard','Projector'],['Keyboard','Monitor'],['Shredder','Printer'],['Laptop','Desktop'],['Boss','Manager'],['Email','Message'],['File','Folder'],['Pen','Marker'],['Chair','Desk'],['Coffee','Tea'],['Salary','Bonus']],Programming:[['JavaScript','TypeScript'],['Python','Ruby'],['Compiler','Translator'],['Bug','Error'],['Function','Method'],['Array','List'],['Loop','Condition'],['Variable','Constant'],['Frontend','Backend'],['Website','App'],['Code','Program'],['File','Folder'],['HTML','CSS'],['JavaScript','Python'],['Button','Link'],['Login','Password']],Fashion:[['Suit','Tuxedo'],['Saree','Lehenga'],['Sneakers','Trainers'],['Jacket','Coat'],['Jeans','Trousers'],['Tie','Bowtie'],['Dress','Skirt'],['Hat','Cap'],['Scarf','Gloves'],['Shirt','T-Shirt'],['Shoes','Sandals'],['Kurta','Shirt'],['Sunglasses','Glasses'],['Watch','Bracelet'],['Handbag','Backpack'],['Jacket','Hoodie']],Space:[['Moon','Mars'],['Astronaut','Cosmonaut'],['Rocket','Shuttle'],['Galaxy','Nebula'],['Comet','Meteor'],['Satellite','Telescope'],['Black Hole','Wormhole'],['Planet','Star'],['Sun','Moon'],['Earth','Mars'],['Rocket','Spaceship'],['Star','Planet'],['Alien','Astronaut'],['Moon','Planet'],['Galaxy','Universe'],['Spaceship','Rocket']],['Deep Sea']:[['Whale','Shark'],['Coral','Seaweed'],['Submarine','Underwater Drone'],['Trench','Canyon'],['Octopus','Squid'],['Jellyfish','Starfish'],['Anglerfish','Fish'],['Pearl','Oyster'],['Shark','Ray'],['Whale','Dolphin'],['Crab','Lobster'],['Shell','Pearl'],['Coral','Rock'],['Submarine','Boat'],['Deep Sea','Ocean'],['Seaweed','Algae']],Landmarks:[['Eiffel Tower','Arc de Triomphe'],['Taj Mahal','Red Fort'],['Statue of Liberty','Golden Gate Bridge'],['Big Ben','London Eye'],['Colosseum','Roman Forum'],['Great Wall','Pyramids'],['Stonehenge','Easter Island'],['Taj Mahal','India Gate'],['Gateway of India','India Gate'],['Burj Khalifa','Eiffel Tower'],['Statue of Liberty','Big Ben'],['Red Fort','Qutub Minar'],['Charminar','Gateway of India'],['Sydney Opera House','Burj Khalifa'],['Great Wall','Colosseum']],['Furniture & Decor']:[['Sofa','Couch'],['Curtain','Blind'],['Lamp','Lantern'],['Table','Desk'],['Bookshelf','Wardrobe'],['Rug','Carpet'],['Vase','Bowl'],['Painting','Poster'],['Bed','Sofa'],['Chair','Stool'],['Mirror','Painting'],['Cupboard','Wardrobe'],['Shelf','Bookshelf'],['Dining Table','Coffee Table'],['Pillow','Cushion'],['Clock','Wall Art']],['Tools & Hardware']:[['Hammer','Mallet'],['Screwdriver','Drill'],['Saw','Blade'],['Nail','Screw'],['Pliers','Wrench'],['Tape Measure','Ruler'],['Torch','Flashlight'],['Bolt','Nut'],['Hammer','Screwdriver'],['Drill','Screwdriver'],['Lock','Key'],['Rope','Chain'],['Ladder','Stool'],['Glue','Tape'],['Wire','Cable'],['Nail','Pin']],['Holidays & Celebrations']:[['Birthday','Anniversary'],['Wedding','Engagement'],['Festival','Fair'],['Party','Gathering'],['Graduation','Ceremony'],['Halloween','Thanksgiving'],['Baby Shower','Bridal Shower'],['Parade','Carnival'],['Birthday','Party'],['Wedding','Reception'],['Diwali','Holi'],['Christmas','New Year'],['Eid','Diwali'],['Cake','Birthday'],['Fireworks','Celebration'],['Gift','Cake']],['Hobbies & Crafts']:[['Painting','Drawing'],['Knitting','Crochet'],['Photography','Filmmaking'],['Gardening','Farming'],['Pottery','Sculpting'],['Origami','Paper Craft'],['Calligraphy','Handwriting'],['Jewelry Making','Beading'],['Cooking','Baking'],['Reading','Writing'],['Singing','Dancing'],['Gaming','Watching Movies'],['Traveling','Photography'],['Fishing','Camping'],['Woodworking','Painting'],['Collecting','Trading']],Bollywood:[['Hero','Star'],['Item Song','Dance Number'],['Director','Producer'],['Climax','Interval'],['Masala','Action'],['Villain','Sidekick'],['Playback Singer','Singer'],['Romance','Drama'],['Hero','Villain'],['Comedy','Romance'],['Song','Dance'],['Actor','Star'],['Lead Actor','Hero'],['Lead Actress','Heroine'],['Director','Actor'],['Trailer','Teaser'],['Hit','Flop'],['Cinema','Theatre'],['Dialogue','Monologue'],['Action','Fight']]};
+  const WORDS = {
+    Food:[['Pizza','Burger'],['Pizza','Lasagna'],['Burger','Sandwich'],['Fries','Nuggets'],['Pancake','Waffle'],['Biryani','Pulao'],['Dosa','Idli'],['Samosa','Kachori'],['Pav Bhaji','Vada Pav'],['Noodles','Pasta'],['Popcorn','Nachos'],['Taco','Burrito'],['Sushi','Ramen'],['Cake','Pastry'],['Cake','Pie'],['Ice Cream','Kulfi'],['Ketchup','Chutney'],['Paneer','Tofu'],['Paratha','Naan'],['Chole','Rajma']],
+    Drinks:[['Coffee','Tea'],['Tea','Green Tea'],['Cola','Soda'],['Lemonade','Iced Tea'],['Milkshake','Smoothie'],['Juice','Shake'],['Mango Juice','Orange Juice'],['Coconut Water','Lemon Water'],['Hot Chocolate','Coffee'],['Beer','Cider'],['Wine','Champagne'],['Water','Soda'],['Matcha','Green Tea'],['Lassi','Buttermilk'],['Cold Coffee','Iced Coffee'],['Mocktail','Juice']],
+    Places:[['Beach','Island'],['Airport','Railway Station'],['Museum','Gallery'],['Hospital','Clinic'],['School','College'],['Temple','Mosque'],['Cinema','Theatre'],['Market','Mall'],['Park','Playground'],['Zoo','Aquarium'],['Library','Bookstore'],['Stadium','Arena'],['Hotel','Resort'],['Restaurant','Cafe'],['Office','Shop'],['Village','Town']],
+    Objects:[['Umbrella','Raincoat'],['Backpack','Suitcase'],['Mirror','Window'],['Clock','Watch'],['Pillow','Cushion'],['Knife','Sword'],['Bottle','Thermos'],['Key','Lock'],['Lamp','Torch'],['Wallet','Purse'],['Scissors','Blade'],['Candle','Matchbox'],['Pen','Pencil'],['Book','Notebook'],['Chair','Stool'],['Bucket','Basket']],
+    Sports:[['Cricket','Baseball'],['Football','Rugby'],['Tennis','Badminton'],['Boxing','Wrestling'],['Golf','Mini Golf'],['Swimming','Diving'],['Basketball','Netball'],['Hockey','Lacrosse'],['Volleyball','Beach Volleyball'],['Cycling','Running'],['Skating','Surfing'],['Archery','Shooting'],['Cricket','Tennis'],['Football','Basketball'],['Kabaddi','Wrestling'],['Table Tennis','Badminton']],
+    Animals:[['Lion','Tiger'],['Cat','Leopard'],['Dog','Wolf'],['Horse','Donkey'],['Elephant','Rhino'],['Monkey','Gorilla'],['Penguin','Puffin'],['Shark','Dolphin'],['Eagle','Hawk'],['Bear','Panda'],['Zebra','Giraffe'],['Fox','Jackal'],['Crocodile','Alligator'],['Deer','Goat'],['Rabbit','Hare'],['Camel','Llama']],
+    'Movies & TV':[['Detective','Police Officer'],['Superhero','Villain'],['Actor','Stuntman'],['Director','Producer'],['Zombie','Vampire'],['Spaceship','Submarine'],['Comedy','Parody'],['Sequel','Remake'],['Sitcom','Drama'],['Thriller','Horror'],['Cartoon','Anime'],['Hero','Sidekick'],['Villain','Monster'],['Detective','Spy'],['Robot','Alien'],['King','Prince'],['School','College'],['Cop','Detective']],
+    Tech:[['Laptop','Desktop'],['Keyboard','Typewriter'],['Mouse','Trackpad'],['Camera','Camcorder'],['Phone','Tablet'],['Browser','Search Engine'],['Robot','Drone'],['WiFi','Bluetooth'],['Monitor','TV'],['Printer','Scanner'],['Hard Drive','SSD'],['Router','Modem'],['Charger','Power Bank'],['Headphones','Earphones'],['Smartwatch','Fitness Band'],['App','Website'],['Password','PIN'],['Speaker','Headphones']],
+    Nature:[['Mountain','Hill'],['River','Lake'],['Forest','Jungle'],['Rain','Drizzle'],['Cloud','Fog'],['Thunder','Lightning'],['Sunrise','Sunset'],['Volcano','Earthquake'],['Tornado','Storm'],['Desert','Oasis'],['Glacier','Iceberg'],['Valley','Canyon'],['Waterfall','River'],['Beach','Desert'],['Rainbow','Sunset'],['Tree','Plant']],
+    People:[['Doctor','Nurse'],['Teacher','Professor'],['Pilot','Driver'],['Chef','Baker'],['Artist','Designer'],['Singer','Actor'],['Police','Detective'],['Farmer','Gardener'],['Lawyer','Judge'],['Engineer','Mechanic'],['Astronaut','Scientist'],['Plumber','Electrician'],['Photographer','Filmmaker'],['Dancer','Singer'],['Manager','Boss'],['Student','Teacher']],
+    Football:[['Goalkeeper','Defender'],['Defender','Fullback'],['Penalty','Free Kick'],['Stadium','Pitch'],['Corner','Throw In'],['Coach','Referee'],['Striker','Winger'],['Midfielder','Defender'],['Yellow Card','Red Card'],['Header','Volley'],['Offside','Handball'],['Goal','Penalty'],['Substitute','Starter'],['Captain','Coach'],['Dribble','Pass'],['Boots','Shin Guards']],
+    Anime:[['Ninja','Samurai'],['Dragon','Demon'],['Hero','Villain'],['Sword','Katana'],['Manga','Comic'],['Shonen','Shojo'],['Sensei','Student'],['Mecha','Robot'],['Isekai','Time Travel'],['Power','Magic'],['School','Academy'],['Monster','Demon'],['King','Prince'],['Master','Student'],['Spirit','Ghost'],['Hero','Protagonist']],
+    Horror:[['Ghost','Spirit'],['Haunted House','Old House'],['Vampire','Werewolf'],['Witch','Wizard'],['Cemetery','Graveyard'],['Mummy','Zombie'],['Axe','Chainsaw'],['Ouija Board','Tarot Cards'],['Clown','Scarecrow'],['Demon','Ghost'],['Monster','Creature'],['Darkness','Night'],['Blood','Knife'],['Coffin','Grave'],['Mask','Clown'],['Haunted Hotel','Haunted House']],
+    Music:[['Guitar','Bass'],['Piano','Keyboard'],['Singer','Rapper'],['Concert','Festival'],['Drums','Percussion'],['Violin','Viola'],['Saxophone','Trumpet'],['Vinyl','Cassette'],['Acoustic','Electric'],['DJ','Singer'],['Song','Music'],['Band','Singer'],['Mic','Speaker'],['Piano','Organ'],['Tabla','Drums'],['Guitar','Ukulele']],
+    Christmas:[['Santa','Elf'],['Christmas Tree','Pine Tree'],['Gift','Present'],['Snowman','Snowflake'],['Carols','Songs'],['Reindeer','Sleigh'],['Stocking','Wreath'],['Mistletoe','Holly'],['Gingerbread','Cake'],['Santa','Snowman'],['Christmas Tree','Decorations'],['Gift','Box'],['Bell','Star'],['Candy Cane','Chocolate'],['Snow','Winter']],
+    'Video Games':[['Controller','Joystick'],['Boss','Enemy'],['Level','Stage'],['Quest','Mission'],['Console','Arcade'],['NPC','Character'],['RPG','Action Game'],['Health','Mana'],['Cutscene','Movie'],['Gun','Weapon'],['Player','Enemy'],['Game Over','Restart'],['Map','Level'],['Sword','Gun'],['Car','Bike'],['Coins','Points']],
+    'Superheroes & Villains':[['Batman','Robin'],['Superman','Homelander'],['Joker','Riddler'],['Hero','Villain'],['Hero','Antihero'],['Cape','Mask'],['Thor','Loki'],['Iron Man','War Machine'],['Spider-Man','Deadpool'],['Hulk','Thor'],['Batman','Superman'],['Flash','Quicksilver'],['Captain America','Winter Soldier'],['Wonder Woman','Supergirl'],['Thanos','Darkseid'],['Venom','Carnage']],
+    'Sci-Fi & Fantasy':[['Alien','Robot'],['Wizard','Magician'],['Magic','Technology'],['Spaceship','Starship'],['Dragon','Phoenix'],['Cyborg','Robot'],['Time Machine','Teleporter'],['Elf','Dwarf'],['Wand','Staff'],['Monster','Alien'],['King','Wizard'],['Castle','Space Station'],['Dragon','Monster'],['Robot','Android'],['Ghost','Spirit'],['Portal','Door']],
+    'Fitness & Gym':[['Treadmill','Running'],['Dumbbell','Kettlebell'],['Yoga','Pilates'],['Squat','Lunge'],['Trainer','Coach'],['Bench Press','Push Up'],['Deadlift','Squat'],['Pull Up','Chin Up'],['Resistance Band','Skipping Rope'],['Protein Shake','Energy Drink'],['Running','Walking'],['Cycling','Running'],['Push Up','Sit Up'],['Gym','Fitness Class'],['Weights','Dumbbells']],
+    Travel:[['Passport','Visa'],['Hotel','Hostel'],['Tourist','Traveller'],['Flight','Journey'],['Map','Compass'],['Suitcase','Backpack'],['Cruise','Road Trip'],['Guide','Local'],['Beach','Mountain'],['Train','Flight'],['Hotel','Resort'],['Airport','Railway Station'],['Camera','Passport'],['Ticket','Boarding Pass'],['Trip','Vacation'],['Taxi','Cab']],
+    Vehicles:[['Car','Taxi'],['Bus','Coach'],['Train','Metro'],['Bike','Motorcycle'],['Ship','Boat'],['Helicopter','Plane'],['Scooter','Skateboard'],['Truck','Van'],['Tractor','Jeep'],['Car','SUV'],['Bike','Scooter'],['Auto','Taxi'],['Bus','Van'],['Train','Bullet Train'],['Boat','Yacht'],['Plane','Helicopter']],
+    Instruments:[['Violin','Cello'],['Flute','Clarinet'],['Trumpet','Trombone'],['Drums','Tabla'],['Sitar','Guitar'],['Piano','Organ'],['Harp','Banjo'],['Accordion','Harmonica'],['Xylophone','Marimba'],['Guitar','Ukulele'],['Piano','Keyboard'],['Drums','Dhol'],['Flute','Recorder'],['Tabla','Dholak'],['Saxophone','Flute']],
+    Dinosaurs:[['T-Rex','Allosaurus'],['Triceratops','Stegosaurus'],['Raptor','Velociraptor'],['Dinosaur','Dragon'],['Brachiosaurus','Brontosaurus'],['Pterodactyl','Flying Dinosaur'],['Spinosaurus','T-Rex'],['Dinosaur','Fossil'],['Raptor','T-Rex'],['Triceratops','Rhino'],['Stegosaurus','Triceratops'],['Dinosaur Egg','Chicken Egg'],['Fossil','Bone'],['Volcano','Dinosaur'],['Jurassic','Dinosaur']],
+    Phobias:[['Heights','Flying'],['Darkness','Silence'],['Spiders','Snakes'],['Crowds','Closed Spaces'],['Water','Fire'],['Ghosts','Death'],['Needles','Blood'],['Clowns','Masks'],['Dogs','Insects'],['Thunder','Lightning'],['Public Speaking','Crowds'],['Heights','Ladders'],['Dark Room','Alone'],['Snake','Spider'],['Hospital','Needles']],
+    History:[['King','Emperor'],['Castle','Fort'],['Revolution','War'],['Ancient Rome','Ancient Greece'],['Knight','Samurai'],['Pharaoh','Mummy'],['Gladiator','Soldier'],['Pirate','Viking'],['Caveman','Hunter'],['King','Queen'],['Sword','Shield'],['Castle','Palace'],['Battle','War'],['Army','Soldiers'],['Maharaja','King'],['Freedom Fighter','Soldier']],
+    Office:[['Meeting','Conference'],['Printer','Scanner'],['Manager','Director'],['Desk','Cubicle'],['Stapler','Paperclip'],['Whiteboard','Projector'],['Keyboard','Monitor'],['Shredder','Printer'],['Laptop','Desktop'],['Boss','Manager'],['Email','Message'],['File','Folder'],['Pen','Marker'],['Chair','Desk'],['Coffee','Tea'],['Salary','Bonus']],
+    Programming:[['JavaScript','TypeScript'],['Python','Ruby'],['Compiler','Translator'],['Bug','Error'],['Function','Method'],['Array','List'],['Loop','Condition'],['Variable','Constant'],['Frontend','Backend'],['Website','App'],['Code','Program'],['File','Folder'],['HTML','CSS'],['JavaScript','Python'],['Button','Link'],['Login','Password']],
+    Fashion:[['Suit','Tuxedo'],['Saree','Lehenga'],['Sneakers','Trainers'],['Jacket','Coat'],['Jeans','Trousers'],['Tie','Bowtie'],['Dress','Skirt'],['Hat','Cap'],['Scarf','Gloves'],['Shirt','T-Shirt'],['Shoes','Sandals'],['Kurta','Shirt'],['Sunglasses','Glasses'],['Watch','Bracelet'],['Handbag','Backpack'],['Jacket','Hoodie']],
+    Space:[['Moon','Mars'],['Astronaut','Cosmonaut'],['Rocket','Shuttle'],['Galaxy','Nebula'],['Comet','Meteor'],['Satellite','Telescope'],['Black Hole','Wormhole'],['Planet','Star'],['Sun','Moon'],['Earth','Mars'],['Rocket','Spaceship'],['Star','Planet'],['Alien','Astronaut'],['Moon','Planet'],['Galaxy','Universe'],['Spaceship','Rocket']],
+    'Deep Sea':[['Whale','Shark'],['Coral','Seaweed'],['Submarine','Underwater Drone'],['Trench','Canyon'],['Octopus','Squid'],['Jellyfish','Starfish'],['Anglerfish','Fish'],['Pearl','Oyster'],['Shark','Ray'],['Whale','Dolphin'],['Crab','Lobster'],['Shell','Pearl'],['Coral','Rock'],['Submarine','Boat'],['Deep Sea','Ocean'],['Seaweed','Algae']],
+    Landmarks:[['Eiffel Tower','Arc de Triomphe'],['Taj Mahal','Red Fort'],['Statue of Liberty','Golden Gate Bridge'],['Big Ben','London Eye'],['Colosseum','Roman Forum'],['Great Wall','Pyramids'],['Stonehenge','Easter Island'],['Taj Mahal','India Gate'],['Gateway of India','India Gate'],['Burj Khalifa','Eiffel Tower'],['Statue of Liberty','Big Ben'],['Red Fort','Qutub Minar'],['Charminar','Gateway of India'],['Sydney Opera House','Burj Khalifa'],['Great Wall','Colosseum']],
+    'Furniture & Decor':[['Sofa','Couch'],['Curtain','Blind'],['Lamp','Lantern'],['Table','Desk'],['Bookshelf','Wardrobe'],['Rug','Carpet'],['Vase','Bowl'],['Painting','Poster'],['Bed','Sofa'],['Chair','Stool'],['Mirror','Painting'],['Cupboard','Wardrobe'],['Shelf','Bookshelf'],['Dining Table','Coffee Table'],['Pillow','Cushion'],['Clock','Wall Art']],
+    'Tools & Hardware':[['Hammer','Mallet'],['Screwdriver','Drill'],['Saw','Blade'],['Nail','Screw'],['Pliers','Wrench'],['Tape Measure','Ruler'],['Torch','Flashlight'],['Bolt','Nut'],['Hammer','Screwdriver'],['Drill','Screwdriver'],['Lock','Key'],['Rope','Chain'],['Ladder','Stool'],['Glue','Tape'],['Wire','Cable'],['Nail','Pin']],
+    'Holidays & Celebrations':[['Birthday','Anniversary'],['Wedding','Engagement'],['Festival','Fair'],['Party','Gathering'],['Graduation','Ceremony'],['Halloween','Thanksgiving'],['Baby Shower','Bridal Shower'],['Parade','Carnival'],['Birthday','Party'],['Wedding','Reception'],['Diwali','Holi'],['Christmas','New Year'],['Eid','Diwali'],['Cake','Birthday'],['Fireworks','Celebration'],['Gift','Cake']],
+    'Hobbies & Crafts':[['Painting','Drawing'],['Knitting','Crochet'],['Photography','Filmmaking'],['Gardening','Farming'],['Pottery','Sculpting'],['Origami','Paper Craft'],['Calligraphy','Handwriting'],['Jewelry Making','Beading'],['Cooking','Baking'],['Reading','Writing'],['Singing','Dancing'],['Gaming','Watching Movies'],['Traveling','Photography'],['Fishing','Camping'],['Woodworking','Painting'],['Collecting','Trading']],
+    Bollywood:[['Hero','Star'],['Item Song','Dance Number'],['Director','Producer'],['Climax','Interval'],['Masala','Action'],['Villain','Sidekick'],['Playback Singer','Singer'],['Romance','Drama'],['Hero','Villain'],['Comedy','Romance'],['Song','Dance'],['Actor','Star'],['Lead Actor','Hero'],['Lead Actress','Heroine'],['Director','Actor'],['Trailer','Teaser'],['Hit','Flop'],['Cinema','Theatre'],['Dialogue','Monologue'],['Action','Fight']]
+  };
 
   /* ---------- state & persistence ---------- */
 
@@ -248,11 +285,9 @@
   let pendingElimination = null;
   let lastPair = null;
   let modalCancelFn = null;
-  // Runtime-only (NOT persisted): refreshing at setup always yields a fresh preview pair.
   let previewPair = null;
   let pendingAnim = null;
 
-  // UI prefs (persisted separately from game state)
   let darkMode = (() => { try{ return localStorage.getItem('mrwhite_dark') === '1'; }catch(_){ return false; } })();
   let keepScreenOn = (() => { try{ const v = localStorage.getItem('mrwhite_keepscreen'); return v === null ? true : v === '1'; }catch(_){ return true; } })();
 
@@ -292,10 +327,28 @@
   /* ---------- utils ---------- */
 
   function esc(str){ return String(str ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#039;','"':'&quot;'}[c])); }
-  function vibrate(ms){ try{ navigator.vibrate && navigator.vibrate(ms); }catch(_){} }
+  
+  function haptic(type) {
+    try {
+      if (!navigator.vibrate) return;
+      let pattern = 0;
+      switch(type) {
+        case 'tick': pattern = 10; break;
+        case 'click': pattern = 20; break;
+        case 'heavy': pattern = 45; break;
+        case 'reveal': pattern = 15; break;
+        case 'success': pattern = [15, 30, 60]; break;
+        case 'error': pattern = [60, 30, 60]; break;
+        case 'alert': pattern = [30, 20, 30]; break;
+        default: pattern = 15;
+      }
+      navigator.vibrate(pattern);
+    } catch(_) {}
+  }
+  
   function pairKey(a, b){ return [a, b].sort().join('||'); }
 
-  /* ---------- pure game logic (unit-testable) ---------- */
+  /* ---------- pure game logic ---------- */
 
   function normalizeRoleCounts(playerCount, undercover, white){
     let p = Math.max(3, Math.min(20, Math.floor(Number(playerCount) || 5)));
@@ -370,8 +423,6 @@
     return pool;
   }
 
-  /* ---------- preview pair (runtime-only, never persisted) ---------- */
-
   function previewPairStillValid(){
     if(!previewPair) return false;
     const pool = wordPool();
@@ -402,8 +453,6 @@
     if(state.customMode) return;
     if(!previewPairStillValid()) previewPair = pickPreviewPair();
   }
-
-  /* ---------- round flow ---------- */
 
   function chooseWords(){
     if(state.customMode && state.customCivilian.trim() && state.customUndercover.trim()){
@@ -466,6 +515,7 @@
   }
 
   function nextPass(){
+    haptic('click');
     if(state.currentPassIndex >= state.players.length - 1){
       state.currentPassIndex = 0; go('discussion', 'next'); return;
     }
@@ -489,16 +539,17 @@
     p.eliminated = true;
     state.eliminated.push(index);
     save();
-    if(p.role === 'white'){ showWhiteGuessModal(p); return; }
+    if(p.role === 'white'){ haptic('alert'); showWhiteGuessModal(p); return; }
     const winner = checkWinner();
-    if(winner){ endGame(winner); return; }
+    if(winner){ haptic('success'); endGame(winner); return; }
     advanceTurn(p);
   }
 
   function resolveWhiteGuess(correct){
-    if(correct){ endGame('Mr White'); return; }
+    if(correct){ haptic('success'); endGame('Mr White'); return; }
     const winner = checkWinner();
-    if(winner){ endGame(winner); return; }
+    if(winner){ haptic('success'); endGame(winner); return; }
+    haptic('error');
     advanceTurn(null);
   }
 
@@ -517,11 +568,13 @@
   function closeViaCancel(){ const fn = modalCancelFn; closeModal(); if(fn) fn(); }
 
   function showVotedOutModal(p){
+    haptic('heavy');
     openModal(`<h3>Voted out ${esc(p.name)} was ${rolePhraseColored(p.role)}.</h3>
       <button class="btn black full" id="contBtn">Continue →</button>`);
   }
 
   function showWhiteGuessModal(p){
+    haptic('alert');
     openModal(`<h3>Voted out ${esc(p.name)} was <span class="role-text role-white">Mr White</span>.</h3>
       <p>Mr White gets one chance to guess the civilian word and steal the win.</p>
       <input class="input" id="whiteGuessInput" placeholder="Civilian word" autocomplete="off" autocapitalize="off" spellcheck="false">
@@ -530,11 +583,11 @@
       { onCancel: () => resolveWhiteGuess(false) });
   }
 
-  // Combined player action sheet (replaces the old peek + vote confirm)
   function openPlayerActionSheet(i){
     const p = state.players[i];
     if(!p || p.eliminated) return;
     pendingElimination = i; peekIndex = i;
+    haptic('click');
     openModal(`<h3>${esc(p.name)}</h3>
       <div id="peekSecret" class="peek-secret hidden" aria-live="polite"></div>
       <button class="btn black full" data-hold="peek" id="holdPeek">Hold to show word</button>
@@ -560,21 +613,18 @@
     return `<div class="pass-secret"><div class="eyebrow">${eyebrow}</div><h1>${title}</h1><p>Release to hide and pass.</p></div>`;
   }
 
-  /* ---------- words preview modal ---------- */
-
   function wordPreviewMarkup(){
     return `<div class="word-pair"><span class="role-text role-civilian">Civilian</span> <strong>${esc(previewPair.civilian)}</strong></div>
       <div class="word-pair"><span class="role-text role-undercover">Undercover</span> <strong>${esc(previewPair.undercover)}</strong></div>`;
   }
   function showWordsModal(){
     ensurePreviewPair();
+    haptic('click');
     openModal(`<h3>Words this round</h3>
       <div id="wordsModalPreview" class="word-preview">${wordPreviewMarkup()}</div>
       <button class="btn black full" id="changeWordsBtn">Change</button>
       <button class="ghost full" id="cancelModal">Done</button>`);
   }
-
-  /* ---------- hold-to-reveal (delegated, pointer + keyboard) ---------- */
 
   let holdTimer = null, holdEl = null, holdShown = false;
 
@@ -584,7 +634,7 @@
     holdTimer = setTimeout(() => {
       holdTimer = null; holdShown = true;
       renderHold(el);
-      vibrate(15);
+      haptic('reveal');
     }, 10);
   }
   function endHold(){
@@ -611,8 +661,6 @@
     }
   }
 
-  /* ---------- top bar ---------- */
-
   function renderTopbar(){
     topbar.innerHTML =
       `<button class="top-pill ${darkMode ? 'on' : ''}" id="darkToggle" aria-pressed="${darkMode}">🌙 Dark</button>
@@ -626,8 +674,6 @@
     const m = document.querySelector('meta[name="theme-color"]');
     if(m) m.setAttribute('content', darkMode ? '#0e0e10' : '#ffffff');
   }
-
-  /* ---------- rendering ---------- */
 
   function categoryButton(c){
     const on = state.categories.includes(c);
@@ -708,17 +754,17 @@
     syncTopbarWidth();
   }
 
-  /* ---------- events (fully delegated) ---------- */
-
   document.addEventListener('click', e => {
     const q = s => e.target.closest(s);
     let el;
 
     if((el = q('[data-accordion]'))){
+      haptic('tick');
       uiExpanded[el.dataset.accordion] = !uiExpanded[el.dataset.accordion];
       render(); return;
     }
     if((el = q('[data-category]'))){
+      haptic('tick');
       const c = el.dataset.category;
       state.categories = state.categories.includes(c)
         ? state.categories.filter(x => x !== c)
@@ -726,6 +772,7 @@
       refreshPreviewIfInvalid(); save(); render(); return;
     }
     if((el = q('[data-role]'))){
+      haptic('click');
       const r = el.dataset.role, d = Number(el.dataset.delta);
       if(d > 0){
         if(state.roles.civilian > 1 && state.roles[r] < state.playerCount - 1){
@@ -745,18 +792,21 @@
     const id = button ? button.id : '';
     switch(id){
       case 'darkToggle':
+        haptic('tick');
         darkMode = !darkMode;
         prefSet('mrwhite_dark', darkMode ? '1' : '0');
         applyTheme();
         renderTopbar();
         break;
       case 'keepOnToggle':
+        haptic('tick');
         keepScreenOn = !keepScreenOn;
         prefSet('mrwhite_keepscreen', keepScreenOn ? '1' : '0');
         applyWakeLock();
         renderTopbar();
         break;
       case 'playerMinus':
+        haptic('click');
         if(state.playerCount > 3){
           state.playerCount--;
           if(state.roles.civilian > 1) state.roles.civilian--;
@@ -766,50 +816,60 @@
         }
         break;
       case 'playerPlus':
+        haptic('click');
         if(state.playerCount < 20){
           state.playerCount++; state.roles.civilian++;
           syncNames(); save(); render();
         }
         break;
-      case 'databaseBtn': state.customMode = false; ensurePreviewPair(); save(); render(); break;
-      case 'customBtn': state.customMode = true; save(); render(); break;
+      case 'databaseBtn': haptic('tick'); state.customMode = false; ensurePreviewPair(); save(); render(); break;
+      case 'customBtn': haptic('tick'); state.customMode = true; save(); render(); break;
       case 'showWordsBtn': showWordsModal(); break;
       case 'changeWordsBtn': {
-        previewPair = pickPreviewPair(); vibrate(12);
+        haptic('click');
+        previewPair = pickPreviewPair();
         const wmp = document.getElementById('wordsModalPreview');
         if(wmp) wmp.innerHTML = wordPreviewMarkup(); else showWordsModal();
         break;
       }
       case 'mysteryBtn':
+        haptic('tick');
         state.mysteryMode = !state.mysteryMode; state.mysteryModeConfigured = true;
         save(); render(); break;
       case 'resetNamesBtn':
+        haptic('click');
         state.playerNames = Array.from({length: state.playerCount}, (_, i) => `Player ${i+1}`);
         save(); render(); break;
       case 'selectAllCategoriesBtn':
+        haptic('click');
         state.categories = [...CATEGORIES]; refreshPreviewIfInvalid(); save(); render(); break;
       case 'deselectAllCategoriesBtn':
+        haptic('click');
         state.categories = []; refreshPreviewIfInvalid(); save(); render(); break;
       case 'startBtn':
         if(state.customMode && (!state.customCivilian.trim() || !state.customUndercover.trim())){
+          haptic('error');
           openModal(`<h3>Missing words.</h3><p>Enter both a civilian word and an undercover word, or switch back to the word database.</p><button class="btn black full" id="contBtn">Continue →</button>`);
           break;
         }
-        startRound(); break;
+        haptic('heavy'); startRound(); break;
       case 'passNextBtn': nextPass(); break;
       case 'backPass':
+        haptic('click');
         state.currentPassIndex = Math.max(0, state.currentPassIndex - 1);
         go('pass', 'back'); break;
       case 'endGameBtn':
+        haptic('alert');
         openModal(`<h3>End game?</h3><p>The round will stop and you'll see who everyone was.</p><button class="btn danger full" id="confirmEnd">End game</button><button class="ghost full" id="cancelEnd">Cancel</button>`);
         break;
-      case 'nextRoundBtn': nextRound(); break;
+      case 'nextRoundBtn': 
+        haptic('click'); nextRound(); break;
       case 'newGameBtn':
+        haptic('alert');
         openModal(`<h3>Start a new game?</h3><p>Current round progress will be cleared. Your players, roles and categories stay as they are.</p><button class="btn danger full" id="confirmNewGame">New game</button><button class="ghost full" id="cancelNewGame">Cancel</button>`);
         break;
-      /* modal buttons */
-      case 'contBtn': case 'guessContBtn': closeModal(); break;
-      case 'cancelModal': case 'cancelEnd': case 'cancelNewGame': closeViaCancel(); break;
+      case 'contBtn': case 'guessContBtn': haptic('tick'); closeModal(); break;
+      case 'cancelModal': case 'cancelEnd': case 'cancelNewGame': haptic('tick'); closeViaCancel(); break;
       case 'doEliminate': {
         const i = pendingElimination; pendingElimination = null;
         closeModal(); if(i != null) eliminate(i);
@@ -827,6 +887,7 @@
         if(guess && guess === String(state.words.civilian).trim().toLowerCase()){
           resolveWhiteGuess(true);
         }else{
+          haptic('error');
           openModal(`<h3>Not the word.</h3><p>The civilians keep their secret. The game continues.</p><button class="btn black full" id="guessContBtn">Continue →</button>`);
         }
         break;
@@ -885,8 +946,6 @@
     if(e.target.closest('[data-hold]')) e.preventDefault();
   });
 
-  /* ---------- wake lock (controlled by Awake toggle) ---------- */
-
   let wakeLock = null;
   async function requestWakeLock(){
     try{
@@ -906,10 +965,7 @@
   document.addEventListener('visibilitychange', () => {
     if(document.visibilityState === 'visible' && keepScreenOn) requestWakeLock();
   });
-  // Some browsers need a user gesture to grant the lock the first time
   document.addEventListener('pointerdown', () => { if(keepScreenOn) requestWakeLock(); }, { once:true });
-
-  /* ---------- PWA manifest (inline data URI, stays single-file) ---------- */
 
   function installManifest(){
     try{
@@ -927,8 +983,6 @@
       document.head.appendChild(link);
     }catch(_){}
   }
-
-  /* ---------- self tests: open with ?test and read the console ---------- */
 
   function runSelfTests(){
     const rows = [];
@@ -948,8 +1002,6 @@
     t('samePair rejects flipped pairs', samePair(['A','B'], ['B','A']) === false);
     console.log(rows.join('\n'));
   }
-
-  /* ---------- init ---------- */
 
   applyTheme();
   renderTopbar();
